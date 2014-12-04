@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>List owner:</strong>
+  <%= @concert_list.list_owner_id %>
+</p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @concert_list.title %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @concert_list.description %>
+</p>
+
+<%= link_to 'Edit', edit_concert_list_path(@concert_list) %> |
+<%= link_to 'Back', concert_lists_path %>

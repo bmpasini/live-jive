@@ -1,0 +1,29 @@
+<h1>Listing concert_lists</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>List owner</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @concert_lists.each do |concert_list| %>
+      <tr>
+        <td><%= concert_list.list_owner_id %></td>
+        <td><%= concert_list.title %></td>
+        <td><%= concert_list.description %></td>
+        <td><%= link_to 'Show', concert_list %></td>
+        <td><%= link_to 'Edit', edit_concert_list_path(concert_list) %></td>
+        <td><%= link_to 'Destroy', concert_list, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Concert list', new_concert_list_path %>

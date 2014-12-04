@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  concert_id: 1
+  type: 
+  price: 1
+  how_many_left: 1
+
+two:
+  concert_id: 1
+  type: 
+  price: 1
+  how_many_left: 1

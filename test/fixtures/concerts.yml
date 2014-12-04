@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cdate: 2014-12-04
+  ctime: 2014-12-04 11:31:51
+  location_name: MyString
+  ccity: MyString
+  buy_tickets_website: MyString
+
+two:
+  cdate: 2014-12-04
+  ctime: 2014-12-04 11:31:51
+  location_name: MyString
+  ccity: MyString
+  buy_tickets_website: MyString
