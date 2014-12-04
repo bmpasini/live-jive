@@ -3,7 +3,7 @@
 one:
   bandname: MyString
   name: MyString
-  description: MyString
+  bio: MyString
   website: MyString
   email: MyString
   identity_confirmed?: false
@@ -11,7 +11,7 @@ one:
 two:
   bandname: MyString
   name: MyString
-  description: MyString
+  bio: MyString
   website: MyString
   email: MyString
   identity_confirmed?: false

@@ -3,8 +3,8 @@ class CreateConcertGoings < ActiveRecord::Migration
     create_table :concert_goings do |t|
       t.string :review
       t.integer :rating
-      t.integer :goer_id
-      t.integer :concert_id
+      t.references :goer
+      t.references :concert
 
       t.timestamps
     end

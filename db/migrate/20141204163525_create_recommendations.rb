@@ -1,8 +1,8 @@
 class CreateRecommendations < ActiveRecord::Migration
   def change
     create_table :recommendations do |t|
-      t.integer :concert_id
-      t.integer :concert_list_id
+      t.references :concert
+      t.references :concert_list
 
       t.timestamps
     end

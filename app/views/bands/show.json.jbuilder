@@ -1,1 +1,1 @@
-json.extract! @band, :id, :bandname, :name, :description, :website, :email, :identity_confirmed?, :created_at, :updated_at
+json.extract! @band, :id, :bandname, :name, :bio, :website, :email, :identity_confirmed?, :created_at, :updated_at

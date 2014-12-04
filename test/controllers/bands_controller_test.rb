@@ -18,7 +18,7 @@ class BandsControllerTest < ActionController::TestCase
 
   test "should create band" do
     assert_difference('Band.count') do
-      post :create, band: { bandname: @band.bandname, description: @band.description, email: @band.email, identity_confirmed?: @band.identity_confirmed?, name: @band.name, website: @band.website }
+      post :create, band: { bandname: @band.bandname, bio: @band.bio, email: @band.email, identity_confirmed?: @band.identity_confirmed?, name: @band.name, website: @band.website }
     end
 
     assert_redirected_to band_path(assigns(:band))
@@ -35,7 +35,7 @@ class BandsControllerTest < ActionController::TestCase
   end
 
   test "should update band" do
-    patch :update, id: @band, band: { bandname: @band.bandname, description: @band.description, email: @band.email, identity_confirmed?: @band.identity_confirmed?, name: @band.name, website: @band.website }
+    patch :update, id: @band, band: { bandname: @band.bandname, bio: @band.bio, email: @band.email, identity_confirmed?: @band.identity_confirmed?, name: @band.name, website: @band.website }
     assert_redirected_to band_path(assigns(:band))
   end
 

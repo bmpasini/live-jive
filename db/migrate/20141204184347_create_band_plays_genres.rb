@@ -1,8 +1,8 @@
 class CreateBandPlaysGenres < ActiveRecord::Migration
   def change
     create_table :band_plays_genres do |t|
-      t.integer :band_id
-      t.integer :genre_id
+      t.references :band
+      t.references :genre
 
       t.timestamps
     end

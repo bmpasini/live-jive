@@ -3,7 +3,7 @@ class CreateBands < ActiveRecord::Migration
     create_table :bands do |t|
       t.string :bandname
       t.string :name
-      t.string :description
+      t.string :bio
       t.string :website
       t.string :email
       t.boolean :identity_confirmed?

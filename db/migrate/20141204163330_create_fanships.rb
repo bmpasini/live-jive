@@ -1,8 +1,8 @@
 class CreateFanships < ActiveRecord::Migration
   def change
     create_table :fanships do |t|
-      t.integer :band_id
-      t.integer :fan_id
+      t.references :band
+      t.references :fan
 
       t.timestamps
     end
