@@ -1,5 +1,7 @@
 class BandsController < ApplicationController
-  before_action :set_band, only: [:show, :edit, :update, :destroy]
+  before_action :set_band, only: [:show, :edit, :update, :destroy, :correct_band]
+  before_action :logged_in_band, only: [:edit, :update]
+  before_action :correct_band, only: [:edit, :update]
 
   def index
     @bands = Band.all
@@ -46,6 +48,20 @@ class BandsController < ApplicationController
   end
 
   private
+    # Confirms a logged-in band.
+    def logged_in_band
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to band_login_url
+      end
+    end
+
+    # Confirms the correct band.
+    def correct_band
+      redirect_to(root_url) unless current_band?(@band)
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_band
       @band = Band.find(params[:id])
