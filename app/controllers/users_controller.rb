@@ -13,7 +13,6 @@ class UsersController < ApplicationController
     debugger
   end
 
-  # GET /users/new
   def new
     @user = User.new
   end
@@ -22,22 +21,17 @@ class UsersController < ApplicationController
   def edit
   end
 
-  # POST /users
-  # POST /users.json
   def create
     @user = User.new(user_params)
 
-    respond_to do |format|
-      if @user.save
-        log_in @user
-        flash[:success] = "Welcome to LiveJive!"
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
-        format.json { render :show, status: :created, location: @user }
-      else
-        format.html { render :new }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
-      end
+    if @user.save
+      log_in @user
+      flash[:success] = "Welcome to LiveJive!"
+      redirect_to @user, notice: 'User was successfully created.'
+    else
+      render :new
     end
+ 
   end
 
   # PATCH/PUT /users/1

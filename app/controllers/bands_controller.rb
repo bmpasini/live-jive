@@ -12,7 +12,6 @@ class BandsController < ApplicationController
   def show
   end
 
-  # GET /bands/new
   def new
     @band = Band.new
   end

@@ -1,33 +1,33 @@
 Rails.application.routes.draw do
 
-  get 'static_pages/home'
+  # root
+  root 'sessions#user_login'
 
-  get 'static_pages/help'
-
+  # main pages
   resources :concert_lists
   resources :concerts
   resources :bands
   resources :users
 
+  # signups
+  get 'new'  => 'users#new', as: :user_signup
+  post 'new'  => 'users#create'
+  get 'new'  => 'bands#new', as: :band_signup
+  post 'new'  => 'bands#create'
+
   # sessions
-  get 'user_login' => 'sessions#user_login', as: :user_login
-  get 'user_signup' => 'sessions#user_signup', as: :user_signup
-  get 'band_login' => 'sessions#band_login', as: :band_login
-  get 'band_signup' => 'sessions#band_signup', as: :band_signup
-
-  get    'login'   => 'sessions#new'
-  post   'login'   => 'sessions#create'
-  delete 'logout'  => 'sessions#destroy'
-
-  root 'sessions#user_login'
-
-
-
+  get 'user_login' => 'sessions#user_new', as: :user_login
+  post 'user_login' => 'sessions#user_create'
+  delete 'user_logout' => 'sessions#user_destroy'
+  get 'band_login' => 'sessions#band_new', as: :band_login
+  post 'band_login' => 'sessions#band_create'
+  delete 'band_logout' => 'sessions#band_destroy'
   
   # static pages
-  get  'static_pages/help'
-  get  'static_pages/about'
-  get  'static_pages/contact'
+  get  'home' => 'static_pages#home'
+  get  'help' => 'static_pages#help'
+  get  'about' => 'static_pages#about'
+  get  'contact' => 'static_pages#contact'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

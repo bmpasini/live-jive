@@ -36,6 +36,7 @@ CREATE TABLE bands (
   id int(10) NOT NULL AUTO_INCREMENT,
   bandname varchar(40),
   password_digest varchar(40), -- CHANGED!!!
+  remember_digest varchar(40), -- CHANGED!!!
   name varchar(40),
   bio varchar(100), -- CHANGED!!!
   website varchar(40),
