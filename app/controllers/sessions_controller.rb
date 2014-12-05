@@ -9,8 +9,8 @@ class SessionsController < ApplicationController
     user = User.find_by(username: params[:session][:username].downcase)
     if user && user.authenticate(params[:session][:password])
       log_in user
-      remember user
-      redirect_to user
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+      redirect_back_or user
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'user_login'
@@ -21,8 +21,8 @@ class SessionsController < ApplicationController
     band = Band.find_by(bandname: params[:session][:bandname].downcase)
     if band && band.authenticate(params[:session][:password])
       log_in band
-      remember band
-      redirect_to band
+      params[:session][:remember_me] == '1' ? remember(band) : forget(band)
+      redirect_back_or band
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'band_login'

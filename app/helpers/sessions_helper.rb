@@ -75,4 +75,25 @@ module SessionsHelper
       @current_band = nil
     end
   end
+
+  # Returns true if the given user is the current user.
+  def current_user?(user)
+    user == current_user
+  end
+
+  # Returns true if the given band is the current band.
+  def current_band?(band)
+    band == current_band
+  end
+
+  # Stores the URL trying to be accessed.
+  def store_location
+    session[:forwarding_url] = request.url if request.get?
+  end
+
+  # Redirects to stored location (or to the default).
+  def redirect_back_or(default)
+    redirect_to(session[:forwarding_url] || default)
+    session.delete(:forwarding_url)
+  end
 end
