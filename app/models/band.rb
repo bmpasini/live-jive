@@ -7,4 +7,6 @@ class Band < ActiveRecord::Base
 	
 	has_many :fanships
 	has_many :fans, through: :fanships 
+
+	has_secure_password
 end

@@ -20,8 +20,8 @@ CREATE TABLE users (
   name varchar(40),
   year_of_birth int(10),
   email varchar(40),
-  password varchar(40),
-  password_confirmation varchar(40), -- CHANGED!!!
+  password_digest varchar(40), -- CHANGED!!!
+  remember_digest varchar(40), -- CHANGED!!!
   city_of_birth varchar(40),
   reputation_score int(10),
   is_admin BINARY,
@@ -35,6 +35,7 @@ CREATE TABLE users (
 CREATE TABLE bands (
   id int(10) NOT NULL AUTO_INCREMENT,
   bandname varchar(40),
+  password_digest varchar(40), -- CHANGED!!!
   name varchar(40),
   bio varchar(100), -- CHANGED!!!
   website varchar(40),

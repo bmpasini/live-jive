@@ -6,6 +6,7 @@ class CreateBands < ActiveRecord::Migration
       t.string :bio
       t.string :website
       t.string :email
+      t.string :password_digest
       t.boolean :identity_confirmed?
 
       t.timestamps

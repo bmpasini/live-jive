@@ -1,10 +1,10 @@
-User.create(username: "bmpasini", name: "bruno pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password: "password", password_confirmation: "password", city_of_birth: "sao paulo",reputation_score: 10, is_admin?: true, last_login_at: Time.now(), current_login_at: Time.now())
-User.create(username: "bmacedo", name: "bruno macedo", year_of_birth: 1991, email: "bmpasini@nyu.edu", password: "password", password_confirmation: "password", city_of_birth: "sao paulo",reputation_score: 10, is_admin?: false, last_login_at: Time.now(), current_login_at: Time.now())
+User.create(username: "bmpasini", name: "bruno pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password_digest: "password", remember_digest: "password", city_of_birth: "sao paulo",reputation_score: 10, is_admin?: true, last_login_at: Time.now(), current_login_at: Time.now())
+User.create(username: "bmacedo", name: "bruno macedo", year_of_birth: 1991, email: "bmpasini@nyu.edu", password_digest: "password", remember_digest: "password", city_of_birth: "sao paulo",reputation_score: 10, is_admin?: false, last_login_at: Time.now(), current_login_at: Time.now())
 
 
-Band.create(bandname: "bobmarley", name: "Bob Marley", bio: "The creator of reggae music", website: "http://www.bobmarley.com/", email: "bobmarley@gmail.com", identity_confirmed?: true)
-Band.create(bandname: "damianmarley", name: "Damian Marley", bio: "The son of the creator of reggae music", website: "http://www.damianmarley.com/", email: "damianmarley@gmail.com", identity_confirmed?: true)
-Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of the creator of reggae music", website: "http://www.ziggymarley.com/", email: "ziggymarley@gmail.com", identity_confirmed?: true)
+Band.create(bandname: "bobmarley", name: "Bob Marley", bio: "The creator of reggae music", website: "http://www.bobmarley.com/", email: "bobmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true)
+Band.create(bandname: "damianmarley", name: "Damian Marley", bio: "The son of the creator of reggae music", website: "http://www.damianmarley.com/", email: "damianmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true)
+Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of the creator of reggae music", website: "http://www.ziggymarley.com/", email: "ziggymarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true)
 
 Concert.create(title: "Awesome concert 1", description: "Popular show", location_name: "Madison Square Garden", ccity: "New York City", buy_tickets_website: "http://www.tickets.com/")
 Concert.create(title: "Awesome concert 2", description: "Popular show", location_name: "Lincoln Center", ccity: "New York City", buy_tickets_website: "http://www.tickets.com/")

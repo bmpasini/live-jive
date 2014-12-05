@@ -1,13 +1,33 @@
 Rails.application.routes.draw do
-  
-  get 'welcome/index'
+
+  get 'static_pages/home'
+
+  get 'static_pages/help'
 
   resources :concert_lists
   resources :concerts
   resources :bands
   resources :users
 
+  # sessions
+  get 'user_login' => 'sessions#user_login', as: :user_login
+  get 'user_signup' => 'sessions#user_signup', as: :user_signup
+  get 'band_login' => 'sessions#band_login', as: :band_login
+  get 'band_signup' => 'sessions#band_signup', as: :band_signup
+
+  get    'login'   => 'sessions#new'
+  post   'login'   => 'sessions#create'
+  delete 'logout'  => 'sessions#destroy'
+
+  root 'sessions#user_login'
+
+
+
   
+  # static pages
+  get  'static_pages/help'
+  get  'static_pages/about'
+  get  'static_pages/contact'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

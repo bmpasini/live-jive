@@ -5,8 +5,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :name
       t.integer :year_of_birth
       t.string :email
-      t.string :password
-      t.string :password_confirmation
+      t.string :password_digest
+      t.string :remember_digest
       t.string :city_of_birth
       t.integer :reputation_score
       t.boolean :is_admin?
