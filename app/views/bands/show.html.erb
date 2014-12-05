@@ -1,4 +1,14 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, @band.name) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="band_info">
+      <h1>
+        <%= gravatar_for @band %>
+        <%= @band.name %>
+      </h1>
+    </section>
+  </aside>
+</div>
 
 <p>
   <strong>Bandname:</strong>
@@ -24,11 +34,3 @@
   <strong>Email:</strong>
   <%= @band.email %>
 </p>
-
-<p>
-  <strong>Identity confirmed?:</strong>
-  <%= @band.identity_confirmed? %>
-</p>
-
-<%= link_to 'Edit', edit_band_path(@band) %> |
-<%= link_to 'Back', bands_path %>

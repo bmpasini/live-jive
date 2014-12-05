@@ -1,14 +1,10 @@
 class BandsController < ApplicationController
   before_action :set_band, only: [:show, :edit, :update, :destroy]
 
-  # GET /bands
-  # GET /bands.json
   def index
     @bands = Band.all
   end
 
-  # GET /bands/1
-  # GET /bands/1.json
   def show
   end
 
@@ -16,12 +12,10 @@ class BandsController < ApplicationController
     @band = Band.new
   end
 
-  # GET /bands/1/edit
   def edit
+
   end
 
-  # POST /bands
-  # POST /bands.json
   def create
     @band = Band.new(band_params)
 
@@ -35,27 +29,19 @@ class BandsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /bands/1
-  # PATCH/PUT /bands/1.json
   def update
-    respond_to do |format|
-      if @band.update(band_params)
-        format.html { redirect_to @band, notice: 'Band was successfully updated.' }
-        format.json { render :show, status: :ok, location: @band }
-      else
-        format.html { render :edit }
-        format.json { render json: @band.errors, status: :unprocessable_entity }
-      end
+    if @band.update_attributes(band_params)
+      flash[:success] = "Band was successfully updated." 
+      redirect_to @band
+    else
+      render :edit
     end
   end
 
-  # DELETE /bands/1
-  # DELETE /bands/1.json
   def destroy
     @band.destroy
-    respond_to do |format|
-      format.html { redirect_to bands_url, notice: 'Band was successfully destroyed.' }
-      format.json { head :no_content }
+    flash[:success] = "Band was successfully destroyed."
+    redirect_to bands_url
     end
   end
 

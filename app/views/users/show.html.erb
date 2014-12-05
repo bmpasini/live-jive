@@ -1,5 +1,4 @@
 <% provide(:title, @user.name) %>
-<p id="notice"><%= notice %></p>
 <div class="row">
   <aside class="col-md-4">
     <section class="user_info">
@@ -22,18 +21,8 @@
 </p>
 
 <p>
-  <strong>Year of birth:</strong>
-  <%= @user.year_of_birth %>
-</p>
-
-<p>
   <strong>Email:</strong>
   <%= @user.email %>
-</p>
-
-<p>
-  <strong>Password:</strong>
-  <%= @user.password %>
 </p>
 
 <p>
@@ -42,24 +31,21 @@
 </p>
 
 <p>
-  <strong>Reputation score:</strong>
+  <strong>Year of Birth:</strong>
+  <%= @user.year_of_birth %>
+</p>
+
+<p>
+  <strong>Reputation:</strong>
   <%= @user.reputation_score %>
 </p>
 
 <p>
-  <strong>Is admin?:</strong>
-  <%= @user.is_admin? %>
+  <strong>Current Login:</strong>
+  <%= time_ago_in_words(@user.last_login_at) %> ago
 </p>
 
 <p>
-  <strong>Penultimate login at:</strong>
-  <%= @user.penultimate_login_at %>
+  <strong>Last Login:</strong>
+  <%= time_ago_in_words(@user.penultimate_login_at) %> ago
 </p>
-
-<p>
-  <strong>Last login at:</strong>
-  <%= @user.last_login_at %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
