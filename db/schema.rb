@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20141204184347) do
   create_table "bands", force: true do |t|
     t.string   "bandname"
     t.string   "name"
-    t.string   "bio"
+    t.text     "bio"
     t.string   "website"
     t.string   "email"
     t.string   "password_digest"
@@ -44,7 +44,7 @@ ActiveRecord::Schema.define(version: 20141204184347) do
 
   create_table "concert_lists", force: true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.integer  "list_owner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20141204184347) do
 
   create_table "concerts", force: true do |t|
     t.string   "title"
-    t.string   "description"
+    t.text     "description"
     t.string   "buy_tickets_website"
     t.datetime "cdatetime"
     t.string   "location_name"

@@ -4,7 +4,7 @@ class BandsController < ApplicationController
   before_action :correct_band, only: [:edit, :update]
 
   def index
-    @bands = Band.all
+    @bands = Band.paginate(page: params[:page])
   end
 
   def show
@@ -15,7 +15,6 @@ class BandsController < ApplicationController
   end
 
   def edit
-
   end
 
   def create
@@ -44,7 +43,6 @@ class BandsController < ApplicationController
     @band.destroy
     flash[:success] = "Band was successfully destroyed."
     redirect_to bands_url
-    end
   end
 
   private

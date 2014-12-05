@@ -1,22 +1,24 @@
-User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password_digest: "password", remember_digest: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: true, last_login_at: Time.now())
+User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password_digest: "password", remember_digest: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: true, penultimate_login_at: Time.now(), last_login_at: Time.now())
 
-499.times do |n|
+# 499.times do |n|
+99.times do |n|
   name  = Faker::Name.name
-  username = name.split(' ').join.downcase
+  username = name.split(' ').join('.').downcase
   email = Faker::Internet.email
   password = "password"
   city = Faker::Address.city
   yob = 1950+rand(55)
   rep = rand(10)
-  User.create!(name: name,
+  p User.create!(name: name,
   						 username: username,
                email: email,
                password: password,
                password_confirmation: password,
-               city: city,
+               city_of_birth: city,
                year_of_birth: yob,
                reputation_score: rep,
                is_admin?: false,
+               penultimate_login_at: Time.now(),
                last_login_at: Time.now()
                )
 end
@@ -25,22 +27,22 @@ Band.create(bandname: "bobmarley", name: "Bob Marley", bio: "The creator of regg
 Band.create(bandname: "damianmarley", name: "Damian Marley", bio: "The son of the creator of reggae music", website: "http://www.damianmarley.com/", email: "damianmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true)
 Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of the creator of reggae music", website: "http://www.ziggymarley.com/", email: "ziggymarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true)
 
-297.times do |n|
-  name  = Faker::App.name
+# 297.times do |n|
+7.times do |n|
+  name  = Faker::Company.name
   bandname = name.split(' ').join.downcase
   email = Faker::Internet.email
   password = "password"
-  bio = Faker::Lorem.paragraph(5)
+  bio = Faker::Lorem.paragraph(1).slice(0, 100)
   website = Faker::Internet.domain_name
-  User.create!(name:  name,
+  p Band.create!(name:  name,
   						 bandname: bandname,
                email: email,
                password:              password,
                password_confirmation: password,
                bio: bio,
                website: website,
-               identity_confirmed?: true,
-               last_login_at: Time.now()
+               identity_confirmed?: true
                )
 end
 
@@ -48,13 +50,14 @@ Concert.create(title: "Awesome concert 1", description: "Popular show", location
 Concert.create(title: "Awesome concert 2", description: "Popular show", location_name: "Lincoln Center", ccity: "New York City", buy_tickets_website: "http://www.tickets.com/")
 Concert.create(title: "Awesome concert 3", description: "Popular show", location_name: "Broadway", ccity: "New York City", buy_tickets_website: "http://www.tickets.com/")
 
-297.times do |n|
-  title  = Faker::App.name
-  description = Faker::Lorem.paragraph(5)
-  location_name = Faker::App.name
+# 297.times do |n|
+7.times do |n|
+  title  = Faker::Address.name
+  description = Faker::Lorem.paragraph(1).slice(0, 100)
+  location_name = Faker::Address.name
   ccity = Faker::Address.city
   website = Faker::Internet.domain_name
-  User.create!(title:  title,
+  p Concert.create!(title:  title,
   						 description: description,
                location_name: location_name,
                ccity: ccity,
@@ -62,63 +65,153 @@ Concert.create(title: "Awesome concert 3", description: "Popular show", location
                )
 end
 
-Tickets.create(tier: "VIP", price: 300, how_many_left: 27, concert_id: 1)
-Tickets.create(tier: "Regular", price: 100, how_many_left: 52, concert_id: 1)
-
-303.times do |n|
-  concert_id = n
-  tier = ["VIP", "Confort", "Pavillion", "Front Row", "Lounge"].sample
-  price = 50+rand(500)
-  how_many_left = rand(1000)
-  User.create!(tier:  tier,
-  						 price: price,
-               how_many_left: how_many_left,
-               concert_id: concert_id
-               )
+# 300.times do |n|
+10.times do |n|
+	["VIP", "Confort", "Pavillion", "Front Row", "Lounge"].each do |tier|
+	  concert_id = n
+	  price = 50+rand(500)
+	  how_many_left = rand(1000)
+	  p Tickets.create!(tier:  tier,
+	  						 price: price,
+	               how_many_left: how_many_left,
+	               concert_id: concert_id
+	               )
+	end
 end
 
-Genre.create(genre: "Jazz", subgenre: "Jazz")
+Genre.create(genre: "Jazz", subgenre: "Techno Jazz")
 Genre.create(genre: "Jazz", subgenre: "Free Jazz")
 Genre.create(genre: "Jazz", subgenre: "Bebob")
 Genre.create(genre: "Jazz", subgenre: "Cool Jazz")
 Genre.create(genre: "Reggae", subgenre: "Reggae")
 Genre.create(genre: "Reggae", subgenre: "Dancehall")
+Genre.create(genre: "Reggae", subgenre: "Roots")
 
-Fanships.create(band_id: 1, fan_id: 1)
-Fanships.create(band_id: 2, fan_id: 1)
-Fanships.create(band_id: 1, fan_id: 2)
-Fanships.create(band_id: 2, fan_id: 2)
-Fanships.create(band_id: 3, fan_id: 2)
+LiveJiveGenre.clean_hashes.each do |genre|
+	p Genre.create(genre)
+end
 
-Lineup.create(band_id: 1, concert_id: 1)
-Lineup.create(band_id: 2, concert_id: 1)
-Lineup.create(band_id: 1, concert_id: 2)
-Lineup.create(band_id: 2, concert_id: 3)
-Lineup.create(band_id: 3, concert_id: 3)
+# Fanships.create(band_id: 1, fan_id: 1)
+# Fanships.create(band_id: 2, fan_id: 1)
+# Fanships.create(band_id: 1, fan_id: 2)
+# Fanships.create(band_id: 2, fan_id: 2)
+# Fanships.create(band_id: 3, fan_id: 2)
+Band.all.each do |band|
+	band_id = band.id
+	user_ids = Array.new
+	User.all.each do |u|
+		user_ids <<	u.id
+	end
+	5.times do
+		fan_id = user_ids.delete_at(rand(user_ids.length))
+		p Fanships.create(band_id: band_id, fan_id: fan_id)
+	end
+end
 
-ConcertGoings.create(goer_id: 1, concert_id: 1)
-ConcertGoings.create(goer_id: 1, concert_id: 2)
-ConcertGoings.create(goer_id: 2, concert_id: 2)
+# Lineup.create(band_id: 1, concert_id: 1)
+# Lineup.create(band_id: 2, concert_id: 1)
+# Lineup.create(band_id: 1, concert_id: 2)
+# Lineup.create(band_id: 2, concert_id: 3)
+# Lineup.create(band_id: 3, concert_id: 3)
+Band.all.each do |band|
+	band_id = band.id
+	concert_ids = Array.new
+	Concert.all.each do |c|
+		concert_ids <<	c.id
+	end
+	5.times do
+		concert_id = concert_ids.delete_at(rand(concert_ids.length))
+		p Lineup.create(band_id: band_id, concert_id: concert_id)
+	end
+end
+
+# ConcertGoings.create(goer_id: 1, concert_id: 1)
+# ConcertGoings.create(goer_id: 1, concert_id: 2)
+# ConcertGoings.create(goer_id: 2, concert_id: 2)
+User.all.each do |goer|
+	goer_id = goer.id
+	concert_ids = Array.new
+	Concert.all.each do |c|
+		concert_ids <<	c.id
+	end
+	5.times do
+		concert_id = concert_ids.delete_at(rand(concert_ids.length))
+		p ConcertGoings.create(goer_id: goer_id, concert_id: concert_id)
+	end
+end
 
 ConcertList.create(title: "Reggae Shows", description: "Just the best of reggae.")
 ConcertList.create(title: "Bob Marley and Sons", description: "All shows of the Marley Family.")
+# 298.times do |n|
+8.times do |n|
+  title  = Faker::Company.name
+  description = Faker::Lorem.paragraph(1).slice(0, 100)
+  p ConcertList.create!(title:  title,
+  						 description: description
+               )
+end
 
-Recommendation.create(concert_id: 1,concert_list_id: 1)
-Recommendation.create(concert_id: 2,concert_list_id: 1)
-Recommendation.create(concert_id: 1,concert_list_id: 2)
-Recommendation.create(concert_id: 2,concert_list_id: 2)
-Recommendation.create(concert_id: 3,concert_list_id: 2)
 
-UserLikesGenre.create(user_id: 1, genre_id: 5)
-UserLikesGenre.create(user_id: 1, genre_id: 6)
-UserLikesGenre.create(user_id: 2, genre_id: 1)
-UserLikesGenre.create(user_id: 2, genre_id: 2)
-UserLikesGenre.create(user_id: 2, genre_id: 3)
-UserLikesGenre.create(user_id: 2, genre_id: 4)
+# Recommendation.create(concert_id: 1,concert_list_id: 1)
+# Recommendation.create(concert_id: 2,concert_list_id: 1)
+# Recommendation.create(concert_id: 1,concert_list_id: 2)
+# Recommendation.create(concert_id: 2,concert_list_id: 2)
+# Recommendation.create(concert_id: 3,concert_list_id: 2)
+Concert.all.each do |concert|
+	concert_id = concert.id
+	concert_list_ids = Array.new
+		ConcertList.all.each do |c|
+			concert_list_ids <<	c.id
+		end
+	5.times do
+		concert_list_id = concert_list_ids.delete_at(rand(concert_list_ids.length))
+		p Recommendation.create(concert_id: concert_id, concert_list_id: concert_list_id)
+	end
+end
 
-BandPlaysGenre.create(band_id: 1,genre_id: 5)
-BandPlaysGenre.create(band_id: 2,genre_id: 5)
-BandPlaysGenre.create(band_id: 2,genre_id: 6)
+# UserLikesGenre.create(user_id: 1, genre_id: 5)
+# UserLikesGenre.create(user_id: 1, genre_id: 6)
+# UserLikesGenre.create(user_id: 2, genre_id: 1)
+# UserLikesGenre.create(user_id: 2, genre_id: 2)
+# UserLikesGenre.create(user_id: 2, genre_id: 3)
+# UserLikesGenre.create(user_id: 2, genre_id: 4)
+User.all.each do |user|
+	user_id = user.id
+	genre_ids = Array.new
+	Genre.all.each do |c|
+		genre_ids <<	c.id
+	end
+	5.times do
+		genre_id = genre_ids.delete_at(rand(genre_ids.length))
+		p UserLikesGenre.create(user_id: user_id, genre_id: genre_id)
+	end
+end
 
-UserRelationship.create(follower_id: 1,followed_id: 2)
-UserRelationship.create(follower_id: 2,followed_id: 1)
+# BandPlaysGenre.create(band_id: 1,genre_id: 5)
+# BandPlaysGenre.create(band_id: 2,genre_id: 5)
+# BandPlaysGenre.create(band_id: 2,genre_id: 6)
+Band.all.each do |band|
+	band_id = band.id
+	genre_ids = Array.new
+	Genre.all.each do |c|
+		genre_ids <<	c.id
+	end
+	2.times do
+		genre_id = genre_ids.delete_at(rand(genre_ids.length))
+		p BandPlaysGenre.create(band_id: band_id, genre_id: genre_id)
+	end
+end
+
+# UserRelationship.create(follower_id: 1,followed_id: 2)
+# UserRelationship.create(follower_id: 2,followed_id: 1)
+User.all.each do |follower|
+	follower_id = follower.id
+	followed_ids = Array.new
+	User.all.each do |f|
+		followed_ids <<	f.id if f.id != follower_id
+	end
+	10.times do
+		followed_id = followed_ids.delete_at(rand(followed_ids.length))
+		p UserRelationship.create(follower_id: follower_id, followed_id: followed_id)
+	end
+end

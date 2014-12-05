@@ -46,7 +46,6 @@ subGenreId,parentGenreId,name
 1109,878,techno - general
 779,678,delta blues
 1101,530,hardcore rap
-729,661,reggae - general
 990,823,freak folk
 893,591,trance music
 1026,806,brazilian pop music
@@ -86,7 +85,6 @@ subGenreId,parentGenreId,name
 44,44,dancer - general
 1055,849,progressive trance
 666,610,cello rock
-870,661,roots reggae
 1126,627,fusion
 493,479,50s - general
 1072,867,bluegrass - general
@@ -164,7 +162,6 @@ subGenreId,parentGenreId,name
 732,657,stoner rock
 0,0, - general
 1075,43,singer
-634,594,free jazz
 1085,869,alternative hip hop
 57,57,vocalist - general
 1105,835,classical

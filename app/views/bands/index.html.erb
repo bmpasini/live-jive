@@ -1,11 +1,10 @@
 <% provide(:title, 'All Bands') %>
 <h1>All Bands</h1>
 
+<%= will_paginate %>
+
 <ul class="bands">
-  <% @bands.each do |band| %>
-    <li>
-      <%= gravatar_for band, size: 50 %>
-      <%= link_to band.name, band %>
-    </li>
-  <% end %>
+  <%= render @bands %>
 </ul>
+
+<%= will_paginate %>

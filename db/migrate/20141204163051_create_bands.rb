@@ -3,7 +3,7 @@ class CreateBands < ActiveRecord::Migration
     create_table :bands do |t|
       t.string :bandname
       t.string :name
-      t.string :bio
+      t.text :bio
       t.string :website
       t.string :email
       t.string :password_digest

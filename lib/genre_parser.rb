@@ -1,6 +1,3 @@
-require 'csv'
-require 'pp'
-
 class PGenre
   attr_reader :id
   attr_accessor :genre
@@ -76,7 +73,7 @@ class LiveJiveGenre
     dirty_hashes.each do |dirty_hash|
       clean_hashes << remove_myspace(remove_general(equalize_if_nil(dirty_hash))) unless (dirty_hash[:genre] == nil && dirty_hash[:subgenre] == nil)
     end
-    clean_hashes
+    clean_hashes.uniq
   end
 
   private
@@ -102,7 +99,7 @@ class LiveJiveGenre
       s = entry[:subgenre]
       g.slice! "http://www.myspace.com/" if g.include? "http://www.myspace.com/"
       s.slice! "http://www.myspace.com/" if s.include? "http://www.myspace.com/"
-      { genre: g, subgenre: s}
+      { genre: g.capitalize, subgenre: s.capitalize}
     end
 
     def self.dirty_hashes
@@ -118,8 +115,8 @@ class LiveJiveGenre
     end
 
     def self.get_genres_and_subgenres
-      @genres = GenreParser.new('app/services/genre.csv')
-      @subgenres = SubgenreParser.new('app/services/subgenre.csv')
+      @genres = GenreParser.new('config/initializers/genre.csv')
+      @subgenres = SubgenreParser.new('config/initializers/subgenre.csv')
     end
 
     def self.genre_name(id)
@@ -130,13 +127,10 @@ class LiveJiveGenre
   end
 end
 
-genre_parser = GenreParser.new('app/services/genre.csv')
-subgenre_parser = SubgenreParser.new('app/services/subgenre.csv')
+# genre_parser = GenreParser.new('config/initializers/genre.csv')
+# subgenre_parser = SubgenreParser.new('config/initializers/subgenre.csv')
 
 # genres = genre_parser.genre
 # subgenres = subgenre_parser.subgenre
 
-pp LiveJiveGenre.clean_hashes
-
-
-
+# pp LiveJiveGenre.clean_hashes
