@@ -1,4 +1,6 @@
 class Band < ActiveRecord::Base
+  attr_accessor :remember_token
+  
 	has_many :lineups
 	has_many :concerts, through: :lineups
 
