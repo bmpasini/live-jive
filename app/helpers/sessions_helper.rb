@@ -1,9 +1,11 @@
 module SessionsHelper
   # Logs in the given user.
   def log_in(user)
-    if user.class == "User"
+    if user.class.to_s == "User"
       session[:user_id] = user.id
-    elsif user.class == "Band"
+      puts session[:user_id]
+      user.update(penultimate_login_at: user.last_login_at, last_login_at: Time.now())
+    elsif user.class.to_s == "Band"
       session[:band_id] = user.id
     end
   end
@@ -11,9 +13,9 @@ module SessionsHelper
   # Remembers a user in a persistent session.
   def remember(user)
     user.remember
-    if user.class == "User"
+    if user.class.to_s == "User"
       cookies.permanent.signed[:user_id] = user.id
-    elsif user.class == "Band"
+    elsif user.class.to_s == "Band"
       cookies.permanent.signed[:band_id] = user.id
     end
     cookies.permanent[:remember_token] = user.remember_token
@@ -22,9 +24,9 @@ module SessionsHelper
   # Returns the user corresponding to the remember token cookie.
   def current_user
     if (user_id = session[:user_id])
-      @current_user ||= User.find_by(id: user_id)
+      @current_user ||= User.find(user_id)
     elsif (user_id = cookies.signed[:user_id])
-      user = User.find_by(id: user_id)
+      user = User.find(user_id)
       if user && user.authenticated?(cookies[:remember_token])
         log_in user
         @current_user = user
@@ -53,9 +55,9 @@ module SessionsHelper
   # Forgets a persistent session.
   def forget(user)
     user.forget
-    if user.class == "User"
+    if user.class.to_s == "User"
       cookies.delete(:user_id)
-    elsif user.class == "Band"
+    elsif user.class.to_s == "Band"
       cookies.delete(:band_id)
     end
     cookies.delete(:remember_token)
@@ -63,11 +65,14 @@ module SessionsHelper
 
   # Logs out the current user.
   def log_out
-    forget(current_user)
-    forget(current_band)
-    session.delete(:user_id)
-    session.delete(:band_id)
-    @current_user = nil
-    @current_band = nil
+    if session[:user_id]
+      forget(current_user)
+      session.delete(:user_id)
+      @current_user = nil
+    elsif session[:band_id]
+      forget(current_band)
+      session.delete(:band_id)
+      @current_band = nil
+    end
   end
 end

@@ -4,7 +4,7 @@
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@band) do |f| %>
-      <%= render 'shared/error_messages' %>
+      <%= render 'shared/band_error_messages' %>
 
       <%= f.label :bandname %>
       <%= f.text_field :bandname, class: 'form-control' %>
@@ -18,14 +18,14 @@
 	  <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
 
-      <%= f.label :password_confirmation, "Confirmation" %>
+      <%= f.label :password_confirmation, "Password Confirmation" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
 
       <%= f.label :website %>
       <%= f.text_field :website, class: 'form-control' %>
 
-      <%= f.label :bio %>
-      <%= f.text_field :bio, class: 'form-control' %>
+      <%= f.label :bio, "Short Bio" %>
+      <%= f.text_area :bio, class: 'form-control', rows: 7 %>
 
       <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>

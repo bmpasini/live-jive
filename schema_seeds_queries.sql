@@ -25,8 +25,8 @@ CREATE TABLE users (
   city_of_birth varchar(40),
   reputation_score int(10),
   is_admin BINARY,
+  penultimate_login_at DATETIME, -- CHANGED!!!
   last_login_at DATETIME,
-  current_login_at DATETIME,
   created_at DATETIME,
   updated_at DATETIME,
   PRIMARY KEY (id)

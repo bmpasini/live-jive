@@ -11,8 +11,6 @@
   </aside>
 </div>
 
-
-
 <p>
   <strong>Username:</strong>
   <%= @user.username %>
@@ -54,13 +52,13 @@
 </p>
 
 <p>
-  <strong>Last login at:</strong>
-  <%= @user.last_login_at %>
+  <strong>Penultimate login at:</strong>
+  <%= @user.penultimate_login_at %>
 </p>
 
 <p>
-  <strong>Current login at:</strong>
-  <%= @user.current_login_at %>
+  <strong>Last login at:</strong>
+  <%= @user.last_login_at %>
 </p>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

@@ -25,14 +25,13 @@ class BandsController < ApplicationController
   def create
     @band = Band.new(band_params)
 
-    respond_to do |format|
-      if @band.save
-        format.html { redirect_to @band, notice: 'Band was successfully created.' }
-        format.json { render :show, status: :created, location: @band }
-      else
-        format.html { render :new }
-        format.json { render json: @band.errors, status: :unprocessable_entity }
-      end
+    if @band.save
+      @band.update(identity_confirmed?: false)
+      log_in @band
+      flash[:success] = "Account created successfully! Please wait for our admin to confirm your identity, before start using our services."
+      redirect_to 'root'
+    else
+      render :new
     end
   end
 
@@ -68,6 +67,6 @@ class BandsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def band_params
-      params.require(:band).permit(:bandname, :name, :bio, :website, :email, :identity_confirmed?)
+      params.require(:band).permit(:bandname, :name, :bio, :website, :email, :password)
     end
 end

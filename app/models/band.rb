@@ -12,7 +12,7 @@ class Band < ActiveRecord::Base
 
   before_save { self.email = email.downcase }
 
-  validates :bandname,  presence: true, length: { maximum: 10 }
+  validates :bandname,  presence: true, length: { maximum: 10 }, uniqueness: { case_sensitive: false }
 
   validates :name,  presence: true, length: { maximum: 50 }
 
@@ -46,5 +46,10 @@ class Band < ActiveRecord::Base
   def authenticated?(remember_token)
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  # Forgets a user.
+  def forget
+    update_attribute(:remember_digest, nil)
   end
 end

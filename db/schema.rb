@@ -126,8 +126,8 @@ ActiveRecord::Schema.define(version: 20141204184347) do
     t.string   "city_of_birth"
     t.integer  "reputation_score"
     t.boolean  "is_admin?"
+    t.datetime "penultimate_login_at"
     t.datetime "last_login_at"
-    t.datetime "current_login_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

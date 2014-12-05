@@ -3,25 +3,24 @@ Rails.application.routes.draw do
   # root
   root 'sessions#user_login'
 
+  # signups
+  get 'users/new'  => 'users#new', as: :user_signup
+  post 'users'  => 'users#create'
+  get 'bands/new'  => 'bands#new', as: :band_signup
+  post 'bands'  => 'bands#create'
+
+  # sessions
+  get 'user_login' => 'sessions#user_login', as: :user_login
+  post 'user_login' => 'sessions#user_create'
+  get 'band_login' => 'sessions#band_login', as: :band_login
+  post 'band_login' => 'sessions#band_create'
+  delete 'logout' => 'sessions#destroy'
+  
   # main pages
   resources :concert_lists
   resources :concerts
-  resources :bands
-  resources :users
-
-  # signups
-  get 'new'  => 'users#new', as: :user_signup
-  post 'new'  => 'users#create'
-  get 'new'  => 'bands#new', as: :band_signup
-  post 'new'  => 'bands#create'
-
-  # sessions
-  get 'user_login' => 'sessions#user_new', as: :user_login
-  post 'user_login' => 'sessions#user_create'
-  delete 'user_logout' => 'sessions#user_destroy'
-  get 'band_login' => 'sessions#band_new', as: :band_login
-  post 'band_login' => 'sessions#band_create'
-  delete 'band_logout' => 'sessions#band_destroy'
+  resources :bands, only: [:index, :show, :edit, :update, :destroy]
+  resources :users, only: [:index, :show, :edit, :update, :destroy]
   
   # static pages
   get  'home' => 'static_pages#home'

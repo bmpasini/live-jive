@@ -10,8 +10,8 @@ class CreateUsers < ActiveRecord::Migration
       t.string :city_of_birth
       t.integer :reputation_score
       t.boolean :is_admin?
+      t.datetime :penultimate_login_at
       t.datetime :last_login_at
-      t.datetime :current_login_at
 
       t.timestamps
     end

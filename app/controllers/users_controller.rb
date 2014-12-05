@@ -1,14 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
-  # GET /users
-  # GET /users.json
   def index
     @users = User.all
   end
 
-  # GET /users/1
-  # GET /users/1.json
   def show
     debugger
   end
@@ -17,7 +13,6 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
-  # GET /users/1/edit
   def edit
   end
 
@@ -25,9 +20,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      @user.update(is_admin?: false, reputation_score: 0)
       log_in @user
       flash[:success] = "Welcome to LiveJive!"
-      redirect_to @user, notice: 'User was successfully created.'
+      redirect_to @user
     else
       render :new
     end
@@ -66,6 +62,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:username, :name, :year_of_birth, :email, :password, :city_of_birth, :reputation_score, :is_admin?, :last_login_at, :current_login_at)
+      params.require(:user).permit(:username, :name, :year_of_birth, :email, :password, :city_of_birth)
     end
 end
