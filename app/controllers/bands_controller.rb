@@ -1,6 +1,6 @@
 class BandsController < ApplicationController
   before_action :set_band, only: [:show, :edit, :update, :destroy, :correct_band]
-  before_action :logged_in_band, only: [:edit, :update]
+  before_action :logged_in_band, only: [:index, :edit, :update]
   before_action :correct_band, only: [:edit, :update]
 
   def index
