@@ -1,5 +1,5 @@
-seeding_start = Time.now()
-User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password: "password", password_confirmation: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: true, penultimate_login_at: Time.now(), last_login_at: Time.now())
+seeding_start = Time.zone.now
+User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password: "password", password_confirmation: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: true, penultimate_login_at: Time.zone.now, last_login_at: Time.zone.now)
 
 # 499.times do |n|
 99.times do |n|
@@ -11,22 +11,23 @@ User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 19
   yob = 1950+rand(55)
   rep = rand(10)
   p User.create!(name: name,
-  						 username: username,
-               email: email,
-               password: password,
-               password_confirmation: password,
-               city_of_birth: city,
-               year_of_birth: yob,
-               reputation_score: rep,
-               is_admin?: false,
-               penultimate_login_at: Time.now(),
-               last_login_at: Time.now()
-               )
+	  						 username: username,
+	               email: email,
+	               password: password,
+	               password_confirmation: password,
+	               city_of_birth: city,
+	               year_of_birth: yob,
+	               reputation_score: rep,
+	               is_admin?: false,
+	               penultimate_login_at: Time.zone.now,
+	               last_login_at: Time.zone.now
+	               )
 end
 
-Band.create(bandname: "bobmarley", name: "Bob Marley", bio: "The creator of reggae music", website: "http://www.bobmarley.com/", email: "bobmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true)
-Band.create(bandname: "damianmarley", name: "Damian Marley", bio: "The son of the creator of reggae music", website: "http://www.damianmarley.com/", email: "damianmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true)
-Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of the creator of reggae music", website: "http://www.ziggymarley.com/", email: "ziggymarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true)
+Band.create(bandname: "bobmarley", name: "Bob Marley", bio: "The creator of reggae music", website: "http://www.bobmarley.com/", email: "bobmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.zone.now)
+Band.create(bandname: "damianmarley", name: "Damian Marley", bio: "The son of the creator of reggae music", website: "http://www.damianmarley.com/", email: "damianmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.zone.now)
+Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of the creator of reggae music", website: "http://www.ziggymarley.com/", email: "ziggymarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.zone.now)
+
 
 # 297.times do |n|
 7.times do |n|
@@ -37,13 +38,14 @@ Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of 
   bio = Faker::Lorem.paragraph(1).slice(0, 100)
   website = Faker::Internet.domain_name
   p Band.create!(name:  name,
-  						 bandname: bandname,
-               email: email,
-               password:              password,
-               password_confirmation: password,
-               bio: bio,
-               website: website,
-               identity_confirmed?: true
+	  						 bandname: bandname,
+	               email: email,
+	               password:              password,
+	               password_confirmation: password,
+	               bio: bio,
+	               website: website,
+	               identity_confirmed?: true,
+	               activated_at: Time.zone.now
                )
 end
 
@@ -216,4 +218,4 @@ User.all.each do |follower|
 		p UserRelationship.create(follower_id: follower_id, followed_id: followed_id)
 	end
 end
-puts "Seeding took #{Time.now() - seeding_start} seconds"
+puts "Seeding took #{Time.zone.now - seeding_start} seconds"

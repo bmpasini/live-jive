@@ -22,9 +22,11 @@ CREATE TABLE users (
   email varchar(40),
   password_digest varchar(40), -- CHANGED!!!
   remember_digest varchar(40), -- CHANGED!!!
+  reset_digest varchar(40), -- CHANGED!!!
   city_of_birth varchar(40),
   reputation_score int(10),
   is_admin BINARY,
+  reset_sent_at DATETIME, -- CHANGED!!!
   penultimate_login_at DATETIME, -- CHANGED!!!
   last_login_at DATETIME,
   created_at DATETIME,
@@ -37,11 +39,15 @@ CREATE TABLE bands (
   bandname varchar(40),
   password_digest varchar(40), -- CHANGED!!!
   remember_digest varchar(40), -- CHANGED!!!
+  activation_digest varchar(40), -- CHANGED!!!
+  reset_digest varchar(40), -- CHANGED!!!
   name varchar(40),
   bio varchar(100), -- CHANGED!!!
   website varchar(40),
   email varchar(40),
   identity_confirmed BINARY,
+  activated_at DATETIME, -- CHANGED!!!
+  reset_sent_at DATETIME, -- CHANGED!!!
   created_at DATETIME,
   updated_at DATETIME,
   PRIMARY KEY (id)

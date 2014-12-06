@@ -19,13 +19,13 @@ class BandsController < ApplicationController
   end
 
   def create
+    session[:user_id] = nil
     @band = Band.new(band_params)
 
     if @band.save
-      @band.update(identity_confirmed?: false)
-      log_in @band
-      flash[:success] = "Account created successfully! Please wait for our admin to confirm your identity, before start using our services."
-      redirect_to 'root'
+      @band.send_activation_email
+      flash[:info] = "LiveJive must verify your identity. Please check your email."
+      redirect_to root_url
     else
       render :new
     end

@@ -7,5 +7,6 @@ class CreateConcertLists < ActiveRecord::Migration
 
       t.timestamps
     end
+    add_index :concert_lists, [:list_owner_id, :created_at]
   end
 end

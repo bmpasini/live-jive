@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
-  attr_accessor :remember_token
+  attr_accessor :remember_token, :reset_token
+  before_save   :downcase_email
 
 	has_many :fanships, foreign_key: :fan_id
 	has_many :favorite_bands, through: :fanships, source: :band
@@ -15,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :user_likes_genres
   has_many :favorite_genres, through: :user_likes_genres, source: :genre
 
-	has_many :concert_lists, foreign_key: :list_owner_id
+	has_many :concert_lists, foreign_key: :list_owner_id, dependent: :destroy
 
   has_secure_password
 
@@ -46,9 +47,10 @@ class User < ActiveRecord::Base
   end
 
   # Returns true if the given token matches the digest.
-  def authenticated?(remember_token)
-    return false if remember_digest.nil?
-    BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  def authenticated?(attribute, token)
+    digest = send("#{attribute}_digest")
+    return false if digest.nil?
+    BCrypt::Password.new(digest).is_password?(token)
   end
 
   # Forgets a user.
@@ -70,4 +72,27 @@ class User < ActiveRecord::Base
   def following?(other_user)
     following.include?(other_user)
   end
+
+  # Sets the password reset attributes.
+  def create_reset_digest
+    self.reset_token = User.new_token
+    update_attribute(:reset_digest,  User.digest(reset_token))
+    update_attribute(:reset_sent_at, Time.zone.now)
+  end
+
+  # Sends password reset email.
+  def send_password_reset_email
+    UserMailer.password_reset(self).deliver!
+  end
+
+  # Returns true if a password reset has expired.
+  def password_reset_expired?
+    reset_sent_at < 2.hours.ago
+  end
+
+  private
+    # Converts email to all lower-case.
+    def downcase_email
+      self.email = email.downcase
+    end
 end

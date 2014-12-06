@@ -8,7 +8,11 @@ class CreateBands < ActiveRecord::Migration
       t.string :email
       t.string :password_digest
       t.string :remember_digest
-      t.boolean :identity_confirmed?
+      t.string :activation_digest
+      t.string :reset_digest
+      t.boolean :identity_confirmed?, default: false
+      t.datetime :activated_at
+      t.datetime :reset_sent_at
 
       t.timestamps
     end

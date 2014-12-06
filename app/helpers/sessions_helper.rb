@@ -27,7 +27,7 @@ module SessionsHelper
       @current_user ||= User.find(user_id)
     elsif (user_id = cookies.signed[:user_id])
       user = User.find(user_id)
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(:remember, cookies[:remember_token])
         log_in user
         @current_user = user
       end
@@ -40,7 +40,7 @@ module SessionsHelper
       @current_band ||= Band.find_by(id: band_id)
     elsif (band_id = cookies.signed[:band_id])
       band = Band.find_by(id: band_id)
-      if band && band.authenticated?(cookies[:remember_token])
+      if band && band.authenticated?(:remember, cookies[:remember_token])
         log_in band
         @current_band = band
       end

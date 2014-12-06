@@ -1,0 +1,5 @@
+Hi <%= @band.name %>,
+
+Welcome to LiveJive! Click on the link below to confirm your identity:
+
+<%= link_to "Confirm", edit_account_activation_url(@band.activation_token, email: @band.email) %>

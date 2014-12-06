@@ -20,5 +20,11 @@
 
       <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>
+
+    <br>
+
+    <p>Already have an account? <%= link_to "Log in now!", user_login_path %></p>
+    
+    <p>Are you a band? <%= link_to "Band Sign Up", band_signup_path %></p>
   </div>
 </div>

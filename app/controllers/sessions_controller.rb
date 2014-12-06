@@ -20,9 +20,16 @@ class SessionsController < ApplicationController
   def band_create
     band = Band.find_by(bandname: params[:session][:bandname].downcase)
     if band && band.authenticate(params[:session][:password])
-      log_in band
-      params[:session][:remember_me] == '1' ? remember(band) : forget(band)
-      redirect_back_or band
+      if band.activated?
+        log_in band
+        params[:session][:remember_me] == '1' ? remember(band) : forget(band)
+        redirect_back_or band
+      else
+        message  = "Your identity has not been confirmed yet. "
+        message += "Please check your email."
+        flash[:warning] = message
+        redirect_to root_url
+      end
     else
       flash.now[:danger] = 'Invalid email/password combination'
       render 'band_login'

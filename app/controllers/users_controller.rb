@@ -20,6 +20,7 @@ class UsersController < ApplicationController
   end
 
   def create
+    session[:band_id] = nil
     @user = User.new(user_params)
 
     if @user.save

@@ -7,9 +7,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string :email
       t.string :password_digest
       t.string :remember_digest
+      t.string :reset_digest
       t.string :city_of_birth
       t.integer :reputation_score
       t.boolean :is_admin?
+      t.datetime :reset_sent_at
       t.datetime :penultimate_login_at
       t.datetime :last_login_at
 
