@@ -1,4 +1,5 @@
-User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password_digest: "password", remember_digest: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: true, penultimate_login_at: Time.now(), last_login_at: Time.now())
+seeding_start = Time.now()
+User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password: "password", password_confirmation: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: true, penultimate_login_at: Time.now(), last_login_at: Time.now())
 
 # 499.times do |n|
 99.times do |n|
@@ -215,3 +216,4 @@ User.all.each do |follower|
 		p UserRelationship.create(follower_id: follower_id, followed_id: followed_id)
 	end
 end
+puts "Seeding took #{Time.now() - seeding_start} seconds"

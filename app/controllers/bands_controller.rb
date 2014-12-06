@@ -1,7 +1,8 @@
 class BandsController < ApplicationController
   before_action :set_band, only: [:show, :edit, :update, :destroy, :correct_band]
-  before_action :logged_in_band, only: [:index, :edit, :update]
+  before_action :logged_in_band, only: [:index, :edit, :update, :destroy]
   before_action :correct_band, only: [:edit, :update]
+  before_action :admin_user, only: :destroy
 
   def index
     @bands = Band.paginate(page: params[:page])
@@ -41,7 +42,7 @@ class BandsController < ApplicationController
 
   def destroy
     @band.destroy
-    flash[:success] = "Band was successfully destroyed."
+    flash[:success] = "Band was successfully deleted."
     redirect_to bands_url
   end
 
@@ -58,6 +59,11 @@ class BandsController < ApplicationController
     # Confirms the correct band.
     def correct_band
       redirect_to(root_url) unless current_band?(@band)
+    end
+
+    # Confirms an admin user.
+    def admin_user
+      redirect_to(root_url) unless current_user.is_admin?
     end
 
     # Use callbacks to share common setup or constraints between actions.

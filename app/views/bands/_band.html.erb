@@ -1,4 +1,7 @@
 <li>
   <%= gravatar_for band, size: 50 %>
   <%= link_to band.name, band %>
+  <% if current_user.is_admin? && !current_band?(band) %>
+    | <%= link_to "Delete", band, method: :delete, data: { confirm: "You sure?" } %>
+<% end %>
 </li>
