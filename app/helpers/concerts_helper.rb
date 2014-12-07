@@ -25,4 +25,10 @@ module ConcertsHelper
   	end
   	ratings.inject{ |sum, el| sum + el }.to_f / ratings.size
   end
+
+  def range_arr(max)
+  	range = Array.new
+  	max.times { |n| range << n + 1 }
+  	range
+  end
 end

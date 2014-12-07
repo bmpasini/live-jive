@@ -4,7 +4,7 @@
 <%= will_paginate %>
 
 <ul class="users">
-  <%= render @concerts %>
+  <%= render @concerts.order('created_at DESC') %>
 </ul>
 
 <%= will_paginate %>

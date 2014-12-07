@@ -28,7 +28,37 @@
 				<%= f.label :band_ids, "Lineup" %><br />
   			<%= f.collection_select :band_ids, Band.order(:name), :id, :name, {}, { multiple: true } %>
 			</div>
-	
+	   
+      <div class="field">
+      <strong>VIP Tickets</strong>
+        <br><em>How many: </em><%= f.select :vip_tickets_how_many_left, options_for_select(range_arr(1000)), class: 'form-control' %>
+        <em>Price: </em><%= f.select :vip_tickets_price, options_for_select(range_arr(1000)), class: 'form-control' %>
+      </div>
+          
+      <div class="field">
+        <strong>Confort Tickets</strong>
+        <br><em>How many: </em><%= f.select :confort_how_many_left, options_for_select(range_arr(1000)), class: 'form-control' %>
+        <em>Price: </em><%= f.select :confort_price, options_for_select(range_arr(1000)), class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <strong>Pavillion Tickets</strong>
+        <br><em>How many: </em><%= f.select :pavillion_tickets_how_many_left, options_for_select(range_arr(1000)), class: 'form-control' %>
+        <em>Price: </em><%= f.select :pavillion_tickets_price, options_for_select(range_arr(1000)), class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <strong>Front Row Tickets</strong>
+        <br><em>How many: </em><%= f.select :front_row_tickets_how_many_left, options_for_select(range_arr(1000)), class: 'form-control' %>
+        <em>Price: </em><%= f.select :front_row_tickets_price, options_for_select(range_arr(1000)), class: 'form-control' %>
+      </div>
+
+      <div class="field">
+        <strong>Lounge Tickets</strong>
+        <br><em>How many: </em><%= f.select :lounge_tickets_how_many_left, options_for_select(range_arr(1000)), class: 'form-control' %>
+        <em>Price: </em><%= f.select :lounge_tickets_price, options_for_select(range_arr(1000)), class: 'form-control' %>
+      </div>
+
       <%= f.submit "Create concert", class: "btn btn-primary" %>
     <% end %>
 

@@ -1,5 +1,5 @@
 class Concert < ActiveRecord::Base
-	attr_accessor :band_tokens, :band_ids
+	attr_accessor :band_tokens, :band_ids, :vip_tickets_how_many_left, :vip_tickets_price, :confort_how_many_left, :confort_price, :pavillion_tickets_how_many_left, :pavillion_tickets_price, :front_row_tickets_how_many_left, :front_row_tickets_price, :lounge_tickets_how_many_left, :lounge_tickets_price
 	attr_reader :band_tokens
 
 	has_many :lineups, dependent: :destroy
@@ -16,6 +16,10 @@ class Concert < ActiveRecord::Base
 	validates :title, presence: true
 	validates :description, presence: true
 	validates :buy_tickets_website, presence: true
+
+	def set_ticket(ticket)
+		tickets.create(ticket)
+	end
 
 	def set_lineup(band)
 		lineups.create(band_id: band.id)

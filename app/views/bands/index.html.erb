@@ -4,7 +4,7 @@
 <%= will_paginate %>
 
 <ul class="bands">
-  <%= render @bands %>
+  <%= render @bands.order('created_at DESC') %>
 </ul>
 
 <%= will_paginate %>

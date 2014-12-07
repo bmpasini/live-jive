@@ -27,6 +27,7 @@ class ConcertsController < ApplicationController
     if @concert.save
       bands = get_bands(band_ids_params)
       set_lineups(@concert, bands)
+      set_tickets(@concert)
       redirect_to @concert
       flash[:success] = 'Concert was successfully created.'
     else
@@ -65,6 +66,40 @@ class ConcertsController < ApplicationController
 
     def band_ids_params
       params.require(:concert).permit(band_ids: [])
+    end
+
+    def tickets_params
+      params.require(:concert).permit(:vip_tickets_how_many_left, :vip_tickets_price, :confort_how_many_left, :confort_price, :pavillion_tickets_how_many_left, :pavillion_tickets_price, :front_row_tickets_how_many_left, :front_row_tickets_price, :lounge_tickets_how_many_left, :lounge_tickets_price)
+    end
+
+    def get_tickets
+      vip = Hash.new
+      confort = Hash.new
+      pavillion = Hash.new
+      front_row = Hash.new
+      lounge = Hash.new
+      vip[:tier] = "VIP"
+      vip[:how_many_left] = tickets_params[:vip_tickets_how_many_left]
+      vip[:price] = tickets_params[:vip_tickets_price]
+      confort[:tier] = "Confort"
+      confort[:how_many_left] = tickets_params[:confort_how_many_left]
+      confort[:price] = tickets_params[:confort_price]
+      pavillion[:tier] = "Pavillion"
+      pavillion[:how_many_left] = tickets_params[:pavillion_tickets_how_many_left]
+      pavillion[:price] = tickets_params[:pavillion_tickets_price]
+      front_row[:tier] = "Front Row"
+      front_row[:how_many_left] = tickets_params[:front_row_tickets_how_many_left]
+      front_row[:price] = tickets_params[:front_row_tickets_price]
+      lounge[:tier] = "Lounge"
+      lounge[:how_many_left] = tickets_params[:lounge_tickets_how_many_left]
+      lounge[:price] = tickets_params[:lounge_tickets_price]
+      [vip, confort, pavillion, front_row, lounge]
+    end
+
+    def set_tickets(concert)
+      get_tickets.each do |ticket|
+        concert.set_ticket(ticket)
+      end
     end
 
     def get_bands(band_ids)

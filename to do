@@ -6,7 +6,7 @@ to do
 - concerts page: band can create new concerts --> DONE
 - concerts page: users with certain reputation can create new concerts --> DONE
 - concerts page: lineup add bands --> DONE
-- concerts page: user can RSVP (button like follow, then display form, maybe using jquery)
+- concerts page: user can RSVP (button like follow, then display form, maybe using jquery) -->
 - concerts page: add tickets
 - band: band need to select its genres when creating profile
 - concert lists: user can create a concert list

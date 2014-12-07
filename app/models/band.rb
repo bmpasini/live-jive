@@ -29,6 +29,8 @@ class Band < ActiveRecord::Base
 
   validates :bio,  presence: true, length: { maximum: 1000 }
 
+  scope :desc, order("bands.created_at DESC")
+
   # Genres that band plays.
   def plays_genres
     genres = Array.new
