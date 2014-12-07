@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
   # root
-  root 'sessions#user_login'
+  # root 'sessions#user_login'
+  root 'static_pages#home'
 
   # signups
   get 'users/new'  => 'users#new', as: :user_signup
@@ -24,9 +25,19 @@ Rails.application.routes.draw do
   # main pages
   resources :concert_lists
   resources :concerts
-  resources :bands, only: [:index, :show, :edit, :update, :destroy]
-  resources :users, only: [:index, :show, :edit, :update, :destroy]
-  
+  resources :bands, only: [:index, :show, :edit, :update, :destroy] do
+    member do
+      get :fans
+    end
+  end
+  resources :users, only: [:index, :show, :edit, :update, :destroy] do
+    member do
+      get :following, :followers, :favorite_bands
+    end
+  end
+  resources :user_relationships, only: [:create, :destroy]
+  resources :fanships, only: [:create, :destroy]
+
   # static pages
   get  'home' => 'static_pages#home'
   get  'help' => 'static_pages#help'

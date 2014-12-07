@@ -1,36 +1,24 @@
 <% provide(:title, @band.name) %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="band_info">
-      <h1>
-        <%= gravatar_for @band %>
-        <%= @band.name %>
-      </h1>
-    </section>
-  </aside>
-</div>
-
-<p>
-  <strong>Bandname:</strong>
-  <%= @band.bandname %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @band.name %>
-</p>
-
-<p>
-  <strong>Bio:</strong>
-  <%= @band.bio %>
-</p>
-
-<p>
-  <strong>Website:</strong>
-  <%= @band.website %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @band.email %>
-</p>
+<% if logged_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'bands/gravatar' %>
+      </section>
+      <section class="stats">
+        <%= render 'bands/stats' %>
+      </section>
+      <section>
+        <%= render 'bands/profile' %>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <%= render 'become_fan_form' if logged_in? && user_or_band == "User" %>
+      <%= render 'users/feed' %>
+    </div>
+  </div>
+<% else %>
+  <script type="text/javascript">
+    window.location.href="/user_login"  // put your correct path in a string here
+  </script>
+<% end %>

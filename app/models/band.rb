@@ -9,8 +9,8 @@ class Band < ActiveRecord::Base
 	has_many :band_plays_genres
 	has_many :genres, through: :band_plays_genres
 	
-	has_many :fanships
-	has_many :fans, through: :fanships 
+	has_many :fanships, dependent: :destroy
+	has_many :fans, through: :fanships
 
 	has_secure_password
 
@@ -28,6 +28,12 @@ class Band < ActiveRecord::Base
   validates :website,  presence: true, length: { maximum: 50 }
 
   validates :bio,  presence: true, length: { maximum: 1000 }
+
+  # Bands plays in concert?
+
+  def plays_in_concert?(concert)
+    self.lineups.include?(concert.lineup)
+  end
 
   # Returns the hash digest of the given string.
   def self.digest(string)

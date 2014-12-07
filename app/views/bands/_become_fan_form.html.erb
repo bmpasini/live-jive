@@ -1,0 +1,9 @@
+<% if user_or_band == "User" %>
+  <div id="follow_form">
+  <% if current_user.is_fan?(@band) %>
+    <%= render 'undo_become_fan' %>
+  <% else %>
+    <%= render 'become_fan' %>
+  <% end %>
+  </div>
+<% end %>

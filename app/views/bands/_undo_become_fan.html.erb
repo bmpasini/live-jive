@@ -1,0 +1,3 @@
+<%= form_for(current_user.fanships.find_by(band_id: @band.id), html: { method: :delete }) do |f| %>
+  <%= f.submit "I'm not a fan anymore", class: "btn" %>
+<% end %>

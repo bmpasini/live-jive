@@ -1,0 +1,9 @@
+<% @band ||= current_band %>
+<div class="stats">
+  <a href="<%= fans_band_path(@band) %>">
+    <strong id="fans" class="stat">
+      <%= @band.fans.count %>
+    </strong>
+    Fans
+  </a>
+</div>

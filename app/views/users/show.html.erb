@@ -1,51 +1,24 @@
 <% provide(:title, @user.name) %>
-<div class="row">
-  <aside class="col-md-4">
-    <section class="user_info">
-      <h1>
-        <%= gravatar_for @user %>
-        <%= @user.name %>
-      </h1>
-    </section>
-  </aside>
-</div>
-
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<p>
-  <strong>City of birth:</strong>
-  <%= @user.city_of_birth %>
-</p>
-
-<p>
-  <strong>Year of Birth:</strong>
-  <%= @user.year_of_birth %>
-</p>
-
-<p>
-  <strong>Reputation:</strong>
-  <%= @user.reputation_score %>
-</p>
-
-<p>
-  <strong>Current Login:</strong>
-  <%= time_ago_in_words(@user.last_login_at) %> ago
-</p>
-
-<p>
-  <strong>Last Login:</strong>
-  <%= time_ago_in_words(@user.penultimate_login_at) %> ago
-</p>
+<% if logged_in? %>
+  <div class="row">
+    <aside class="col-md-4">
+      <section class="user_info">
+        <%= render 'users/gravatar' %>
+      </section>
+      <section class="stats">
+        <%= render 'users/stats' %>
+      </section>
+      <section>
+        <%= render 'users/profile' %>
+      </section>
+    </aside>
+    <div class="col-md-8">
+      <%= render 'follow_form' if logged_in? && user_or_band == "User" %>
+      <%= render 'users/feed' %>
+    </div>
+  </div>
+<% else %>
+  <script type="text/javascript">
+    window.location.href="/user_login"  // put your correct path in a string here
+  </script>
+<% end %>

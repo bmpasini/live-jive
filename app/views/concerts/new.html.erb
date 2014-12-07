@@ -1,5 +1,34 @@
-<h1>New concert</h1>
+<% provide(:title, 'New Concert') %>
+<h1>New Concert</h1>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@concert) do |f| %>
+      <%= render 'shared/concert_error_messages' %>
 
-<%= link_to 'Back', concerts_path %>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control', rows: 7 %>
+
+      <%= f.label :buy_tickets_website %>
+      <%= f.password_field :buy_tickets_website, class: 'form-control' %>
+
+      <%= f.label :cdatetime, "Password Confirmation" %>
+      <%= f.datetime_field :cdatetime, class: 'form-control' %>
+
+      <%= f.label :location_name %>
+      <%= f.text_field :location_name, class: 'form-control' %>
+
+      <%= f.label :ccity %>
+      <%= f.text_field :ccity, class: 'form-control' %>
+
+      <%= f.submit "Create concert", class: "btn btn-primary" %>
+    <% end %>
+
+    <br>
+
+    <%= link_to "Show all concerts", concerts_path %>
+  </div>
+</div>

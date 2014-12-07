@@ -54,6 +54,8 @@ ActiveRecord::Schema.define(version: 20141204184347) do
     t.datetime "updated_at"
   end
 
+  add_index "concert_lists", ["list_owner_id", "created_at"], name: "index_concert_lists_on_list_owner_id_and_created_at", using: :btree
+
   create_table "concerts", force: true do |t|
     t.string   "title"
     t.text     "description"

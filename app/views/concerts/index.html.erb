@@ -1,33 +1,10 @@
-<h1>Listing concerts</h1>
+<% provide(:title, 'All Concerts') %>
+<h1>All Concerts</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Cdate</th>
-      <th>Ctime</th>
-      <th>Location name</th>
-      <th>Ccity</th>
-      <th>Buy tickets website</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= will_paginate %>
 
-  <tbody>
-    <% @concerts.each do |concert| %>
-      <tr>
-        <td><%= concert.cdate %></td>
-        <td><%= concert.ctime %></td>
-        <td><%= concert.location_name %></td>
-        <td><%= concert.ccity %></td>
-        <td><%= concert.buy_tickets_website %></td>
-        <td><%= link_to 'Show', concert %></td>
-        <td><%= link_to 'Edit', edit_concert_path(concert) %></td>
-        <td><%= link_to 'Destroy', concert, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<ul class="users">
+  <%= render @concerts %>
+</ul>
 
-<br>
-
-<%= link_to 'New Concert', new_concert_path %>
+<%= will_paginate %>

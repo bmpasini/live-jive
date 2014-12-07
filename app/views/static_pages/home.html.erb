@@ -1,2 +1,9 @@
-<h1>StaticPages#home</h1>
-<p>Find me in app/views/static_pages/home.html.erb</p>
+<% if logged_in? %>
+  <script type="text/javascript">
+    window.location.href="/users/<%= session[:user_id] %>"  // put your correct path in a string here
+  </script>
+<% else %>
+  <script type="text/javascript">
+    window.location.href="/user_login"  // put your correct path in a string here
+  </script>
+<% end %>

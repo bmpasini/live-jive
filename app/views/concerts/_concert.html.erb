@@ -1,0 +1,16 @@
+<li>
+  <%= link_to concert.title, concert %>
+  <% if user_or_band == "Band" %>
+		<% if current_band.plays_in_concert?(concert) %>
+		| <%= link_to "Edit", edit_concert_path(concert) %>
+		| <%= link_to "Delete", concert, method: :delete, data: { confirm: "You sure?" } %>
+		<% end %>
+  <% elsif user_or_band == "User" %>
+		<% if current_user.can_edit_concerts? || current_user.is_admin? %>
+	    | <%= link_to "Edit", edit_concert_path(concert) %>
+	  <% end %>
+	  <% if current_user.is_admin? %>
+	    | <%= link_to "Delete", concert, method: :delete, data: { confirm: "You sure?" } %>
+	  <% end %>
+  <% end %>
+</li>

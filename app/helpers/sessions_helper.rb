@@ -3,8 +3,8 @@ module SessionsHelper
   def log_in(user)
     if user.class.to_s == "User"
       session[:user_id] = user.id
-      puts session[:user_id]
       user.update(penultimate_login_at: user.last_login_at, last_login_at: Time.now())
+      user.set_reputation_score
     elsif user.class.to_s == "Band"
       session[:band_id] = user.id
     end
@@ -95,5 +95,10 @@ module SessionsHelper
   def redirect_back_or(default)
     redirect_to(session[:forwarding_url] || default)
     session.delete(:forwarding_url)
+  end
+
+  def user_or_band
+    return "User" if session[:user_id]
+    return "Band" if session[:band_id]
   end
 end

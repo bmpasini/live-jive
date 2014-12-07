@@ -1,5 +1,5 @@
 class Concert < ActiveRecord::Base
-	has_many :lineups
+	has_one :lineup
 	has_many :bands, through: :lineups
 
 	has_many :concert_goings
@@ -9,4 +9,8 @@ class Concert < ActiveRecord::Base
 	has_many :concert_lists, through: :recommendations
 	
 	has_many :tickets
+
+	validates :title, presence: true
+	validates :description, presence: true
+	validates :buy_tickets_website, presence: true
 end

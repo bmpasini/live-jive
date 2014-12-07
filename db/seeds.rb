@@ -54,18 +54,18 @@ Concert.create(title: "Awesome concert 2", description: "Popular show", location
 Concert.create(title: "Awesome concert 3", description: "Popular show", location_name: "Broadway", ccity: "New York City", buy_tickets_website: "http://www.tickets.com/")
 
 # 297.times do |n|
-7.times do |n|
-  title  = Faker::Address.name
+97.times do |n|
+  title = Faker::Lorem.sentence(2, true, 2)[0..-2]
   description = Faker::Lorem.paragraph(1).slice(0, 100)
-  location_name = Faker::Address.name
+  location_name = Faker::Address.street_name
   ccity = Faker::Address.city
   website = Faker::Internet.domain_name
-  p Concert.create!(title:  title,
-  						 description: description,
-               location_name: location_name,
-               ccity: ccity,
-               buy_tickets_website: website,
-               )
+  p Concert.create!(title: title,
+		  						  description: description,
+		                location_name: location_name,
+		                ccity: ccity,
+		                buy_tickets_website: website,
+		                )
 end
 
 # 300.times do |n|
@@ -143,14 +143,16 @@ User.all.each do |goer|
 	end
 end
 
-ConcertList.create(title: "Reggae Shows", description: "Just the best of reggae.")
-ConcertList.create(title: "Bob Marley and Sons", description: "All shows of the Marley Family.")
+ConcertList.create(title: "Reggae Shows", description: "Just the best of reggae.", list_owner_id: 1)
+ConcertList.create(title: "Bob Marley and Sons", description: "All shows of the Marley Family.", list_owner_id: 1)
 # 298.times do |n|
-8.times do |n|
+98.times do |n|
   title  = Faker::Company.name
   description = Faker::Lorem.paragraph(1).slice(0, 100)
+  list_owner_id = 1 + rand(99)
   p ConcertList.create!(title:  title,
-  						 description: description
+  						 description: description,
+  						 list_owner_id: list_owner_id
                )
 end
 

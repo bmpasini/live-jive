@@ -20,7 +20,7 @@ class SessionsController < ApplicationController
   def band_create
     band = Band.find_by(bandname: params[:session][:bandname].downcase)
     if band && band.authenticate(params[:session][:password])
-      if band.activated?
+      if band.identity_confirmed?
         log_in band
         params[:session][:remember_me] == '1' ? remember(band) : forget(band)
         redirect_back_or band
