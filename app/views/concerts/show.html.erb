@@ -32,7 +32,7 @@
     <ul>
       <% @concert.bands_playing.each do |band| %>
         <li>
-          <%= band.name %>
+          <%=link_to band.name, band %>
         </li>
       <% end %>
     </ul>
