@@ -1,29 +1,47 @@
-<p id="notice"><%= notice %></p>
+<% provide(:title, @concert.title) %>
+<h1><%= @concert.title %></h1>
 
-<p>
-  <strong>Cdate:</strong>
-  <%= @concert.cdate %>
-</p>
+<ul class="users">
+  <li>
+    <strong>Description:</strong>
+    <%= @concert.description %>
+  </li>
+  <li>
+    <strong>Buy Tickets:</strong>
+    <%= link_to @concert.buy_tickets_website, "#{@concert.buy_tickets_website}", :target => "_blank" %>
+  </li>
+  <li>
+    <strong>Location:</strong>
+    <%= @concert.location_name %>
+  </li>
+  <li>
+    <strong>Date and Time:</strong>
+    <%= @concert.cdatetime.to_formatted_s(:long_ordinal) %>
+  </li>
 
-<p>
-  <strong>Ctime:</strong>
-  <%= @concert.ctime %>
-</p>
+  <li>
+    <strong>Lineup:</strong>
+    <ul>
+      <% @concert.bands_playing.each do |band| %>
+        <li>
+          <%= band.name %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
 
-<p>
-  <strong>Location name:</strong>
-  <%= @concert.location_name %>
-</p>
+  <li>
+    <strong>Genres Played:</strong>
+    <ul>
+      <% @concert.genres_played.each do |genre| %>
+        <li>
+          <%= genre %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
 
-<p>
-  <strong>Ccity:</strong>
-  <%= @concert.ccity %>
-</p>
-
-<p>
-  <strong>Buy tickets website:</strong>
-  <%= @concert.buy_tickets_website %>
-</p>
-
-<%= link_to 'Edit', edit_concert_path(@concert) %> |
-<%= link_to 'Back', concerts_path %>
+  <li>
+    <%= link_to 'Go Back', concert_path %>
+  </li>
+</ul>

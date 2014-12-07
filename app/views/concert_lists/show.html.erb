@@ -1,28 +1,24 @@
 <ul class="users">
-	  <li>
-	  	<%= concert.ccity %> @ <%= concert.cdatetime %>
-	  </li>
-	  <li>
-	  	<%= link_to concert.buy_tickets_website, "#{concert.buy_tickets_website}", :target => "_blank" %>
-	  </li>
-	</ul>
+	<li>
+  	<strong>Title:</strong>
+  	<%= @concert.title %>
+  </li>
+  <li>
+	  <strong>Description:</strong>
+	  <%= @concert.description %>
+  </li>
+  <li>
+	  <strong>Buy Tickets:</strong>
+	  <%= link_to concert.buy_tickets_website, "#{concert.buy_tickets_website}", :target => "_blank" %>
+  </li>
+  <li>
+	  <strong>Location:</strong>
+	  <%= @concert.location_name %>
+  </li>
+  <li>
+	  <strong>Date and Time:</strong>
+	  <%= @concert.cdatetime.to_formatted_s(:long_ordinal) %>
+  </li>
+</ul>
 
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>List owner:</strong>
-  <%= @concert_list.list_owner_id %>
-</p>
-
-<p>
-  <strong>Title:</strong>
-  <%= @concert_list.title %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @concert_list.description %>
-</p>
-
-<%= link_to 'Edit', edit_concert_list_path(@concert_list) %> |
-<%= link_to 'Back', concert_lists_path %>
+<%= link_to 'Back', concert_path %>

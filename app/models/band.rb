@@ -29,10 +29,25 @@ class Band < ActiveRecord::Base
 
   validates :bio,  presence: true, length: { maximum: 1000 }
 
-  # Bands plays in concert?
+  # Genres that band plays.
+  def plays_genres
+    genres = Array.new
+    self.genres.each do |genre|
+      if genre.genre == genre.subgenre
+        genres << genre.genre
+      else
+        genres << [genre.genre, genre.subgenre].join(" (").concat(")")
+      end
+    end
+    genres.uniq
+  end
 
+  # Bands plays in concert?
   def plays_in_concert?(concert)
-    self.lineups.include?(concert.lineup)
+    concert.lineups.each do |lineup|
+      return true if self.lineups.include? (concert.lineup)
+    end
+    false
   end
 
   # Returns the hash digest of the given string.

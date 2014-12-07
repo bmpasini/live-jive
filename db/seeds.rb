@@ -1,5 +1,5 @@
-seeding_start = Time.zone.now
-User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password: "password", password_confirmation: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: true, penultimate_login_at: Time.zone.now, last_login_at: Time.zone.now)
+seeding_start = Time.now
+User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password: "password", password_confirmation: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: true, penultimate_login_at: Time.now, last_login_at: Time.now)
 
 # 499.times do |n|
 99.times do |n|
@@ -19,18 +19,18 @@ User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 19
 	               year_of_birth: yob,
 	               reputation_score: rep,
 	               is_admin?: false,
-	               penultimate_login_at: Time.zone.now,
-	               last_login_at: Time.zone.now
+	               penultimate_login_at: Time.now,
+	               last_login_at: Time.now
 	               )
 end
 
-Band.create(bandname: "bobmarley", name: "Bob Marley", bio: "The creator of reggae music", website: "http://www.bobmarley.com/", email: "bobmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.zone.now)
-Band.create(bandname: "damianmarley", name: "Damian Marley", bio: "The son of the creator of reggae music", website: "http://www.damianmarley.com/", email: "damianmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.zone.now)
-Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of the creator of reggae music", website: "http://www.ziggymarley.com/", email: "ziggymarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.zone.now)
+Band.create(bandname: "bobmarley", name: "Bob Marley", bio: "The creator of reggae music", website: "http://www.bobmarley.com/", email: "bobmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.now)
+Band.create(bandname: "damianmarley", name: "Damian Marley", bio: "The son of the creator of reggae music", website: "http://www.damianmarley.com/", email: "damianmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.now)
+Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of the creator of reggae music", website: "http://www.ziggymarley.com/", email: "ziggymarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.now)
 
 
 # 297.times do |n|
-7.times do |n|
+97.times do |n|
   name  = Faker::Company.name
   bandname = name.split(' ').join.downcase
   email = Faker::Internet.email
@@ -45,13 +45,13 @@ Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of 
 	               bio: bio,
 	               website: website,
 	               identity_confirmed?: true,
-	               activated_at: Time.zone.now
+	               activated_at: Time.now
                )
 end
 
-Concert.create(title: "Awesome concert 1", description: "Popular show", location_name: "Madison Square Garden", ccity: "New York City", buy_tickets_website: "http://www.tickets.com/")
-Concert.create(title: "Awesome concert 2", description: "Popular show", location_name: "Lincoln Center", ccity: "New York City", buy_tickets_website: "http://www.tickets.com/")
-Concert.create(title: "Awesome concert 3", description: "Popular show", location_name: "Broadway", ccity: "New York City", buy_tickets_website: "http://www.tickets.com/")
+Concert.create(title: "Awesome concert 1", description: "Popular show", location_name: "Madison Square Garden", ccity: "New York City", buy_tickets_website: "http://www.tickets.com/", cdatetime: Time.now)
+Concert.create(title: "Awesome concert 2", description: "Popular show", location_name: "Lincoln Center", ccity: "New York City", buy_tickets_website: "http://www.tickets.com/", cdatetime: Time.now)
+Concert.create(title: "Awesome concert 3", description: "Popular show", location_name: "Broadway", ccity: "New York City", buy_tickets_website: "http://www.tickets.com/", cdatetime: Time.now)
 
 # 297.times do |n|
 97.times do |n|
@@ -63,6 +63,7 @@ Concert.create(title: "Awesome concert 3", description: "Popular show", location
   p Concert.create!(title: title,
 		  						  description: description,
 		                location_name: location_name,
+		                cdatetime: Time.now,
 		                ccity: ccity,
 		                buy_tickets_website: website,
 		                )
@@ -116,14 +117,14 @@ end
 # Lineup.create(band_id: 1, concert_id: 2)
 # Lineup.create(band_id: 2, concert_id: 3)
 # Lineup.create(band_id: 3, concert_id: 3)
-Band.all.each do |band|
-	band_id = band.id
-	concert_ids = Array.new
-	Concert.all.each do |c|
-		concert_ids <<	c.id
+Concert.all.each do |concert|
+	concert_id = concert.id
+	band_ids = Array.new
+	Band.all.each do |b|
+		band_ids <<	b.id
 	end
-	5.times do
-		concert_id = concert_ids.delete_at(rand(concert_ids.length))
+	(1+rand(4)).times do
+		band_id = band_ids.delete_at(rand(band_ids.length))
 		p Lineup.create(band_id: band_id, concert_id: concert_id)
 	end
 end
@@ -220,4 +221,4 @@ User.all.each do |follower|
 		p UserRelationship.create(follower_id: follower_id, followed_id: followed_id)
 	end
 end
-puts "Seeding took #{Time.zone.now - seeding_start} seconds"
+puts "Seeding took #{Time.now - seeding_start} seconds"

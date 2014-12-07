@@ -52,7 +52,11 @@ class SubgenreParser
     return @subgenre if @subgenre
     @subgenre = Array.new
     CSV.foreach(file) do |row|
-      row_hash = { id: row[0], genre_id: row[1], subgenre: row[2] }
+      genre = row[1]
+      genre.split(" ").each{|sb| sb.capitalize!}.join(" ")
+      subgenre = row[2]
+      subgenre.split(" ").each{|sb| sb.capitalize!}.join(" ")
+      row_hash = { id: row[0], genre_id: genre, subgenre: subgenre }
       # puts row_hash
       @subgenre << PSubgenre.new(row_hash)
     end
@@ -78,8 +82,8 @@ class LiveJiveGenre
 
   private
     def self.equalize_if_nil(entry)
-      puts g = entry[:genre]
-      puts s = entry[:subgenre]
+      # puts g = entry[:genre]
+      # puts s = entry[:subgenre]
       s = g unless s
       g = s unless g
       { genre: g, subgenre: s}
