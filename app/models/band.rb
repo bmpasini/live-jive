@@ -31,15 +31,15 @@ class Band < ActiveRecord::Base
 
   scope :desc, order("bands.created_at DESC")
 
+  def plays_genre?(genre)
+    self.genres.include?(genre)
+  end
+
   # Genres that band plays.
   def plays_genres
     genres = Array.new
     self.genres.each do |genre|
-      if genre.genre == genre.subgenre
-        genres << genre.genre
-      else
-        genres << [genre.genre, genre.subgenre].join(" (").concat(")")
-      end
+      genres << genre.printable
     end
     genres.uniq
   end

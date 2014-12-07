@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(version: 20141204184347) do
     t.datetime "updated_at"
   end
 
+  add_index "concert_goings", ["goer_id", "concert_id"], name: "index_concert_goings_on_goer_id_and_concert_id", unique: true, using: :btree
+
   create_table "concert_lists", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -87,6 +89,8 @@ ActiveRecord::Schema.define(version: 20141204184347) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "lineups", ["band_id", "concert_id"], name: "index_lineups_on_band_id_and_concert_id", unique: true, using: :btree
 
   create_table "recommendations", force: true do |t|
     t.integer  "concert_id"

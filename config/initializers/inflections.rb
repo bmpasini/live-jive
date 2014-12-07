@@ -4,6 +4,8 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   # inflect.plural /^(ox)$/i, '\1en'
   # inflect.singular /^(ox)en/i, '\1'
   # inflect.irregular 'fanship', 'fanships'
+  inflect.irregular 'band_plays_genre', 'band_plays_genres'
+  inflect.irregular 'BandPlaysGenre', 'BandPlaysGenres'
   inflect.uncountable %w( fanships )
   inflect.uncountable %w( tickets )
   inflect.uncountable %w( ConcertGoings )

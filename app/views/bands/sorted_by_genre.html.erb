@@ -1,0 +1,27 @@
+<% provide(:title, 'Bands - Sorted By Genre') %>
+<h1>Bands - Sorted By Genre</h1>
+
+<%= will_paginate %>
+
+<ul style="list-style-type: none;">
+	<% @genres.each do |genre| %>
+		<% if genre.bands.any? %>
+			<li>
+				<strong><%= genre.printable %></strong>
+			</li>
+			<ul class="bands">		
+				<% genre.bands.each do |band| %>
+					<% if band.plays_genre?(genre) %>
+						<%= render band %>
+					<% end %>
+				<% end %>
+			</ul>
+		<% end %>
+	<% end %>
+</ul>
+
+
+
+
+
+<%= will_paginate %>

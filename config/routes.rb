@@ -29,6 +29,9 @@ Rails.application.routes.draw do
     member do
       get :fans
     end
+    collection do
+      get :sorted_by_genre
+    end
   end
   resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do
@@ -38,11 +41,12 @@ Rails.application.routes.draw do
   resources :user_relationships, only: [:create, :destroy]
   resources :fanships, only: [:create, :destroy]
   resources :concert_goings, only: [:create, :edit, :update, :destroy]
-  
+  resources :genres
 
   # static pages
   get  'home' => 'static_pages#home'
   get  'help' => 'static_pages#help'
   get  'about' => 'static_pages#about'
   get  'contact' => 'static_pages#contact'
+  
 end

@@ -1,4 +1,15 @@
 class Genre < ActiveRecord::Base
-	belongs_to :band_plays_genre
-	belongs_to :user_likes_genre
+	has_many :band_plays_genres
+	has_many :bands, through: :band_plays_genres
+
+	has_many :user_likes_genres
+	has_many :users, through: :user_likes_genres
+
+	def printable
+		if self.genre == self.subgenre
+        return self.genre
+    else
+      return [self.genre, self.subgenre].join(" (").concat(")")
+    end
+	end
 end

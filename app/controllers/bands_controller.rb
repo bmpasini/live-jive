@@ -9,6 +9,11 @@ class BandsController < ApplicationController
     @bands = Band.paginate(page: params[:page])
   end
 
+  def sorted_by_genre
+    @bands = Band.paginate(page: params[:page])
+    @genres = Genre.all
+  end
+
   def show
   end
 
