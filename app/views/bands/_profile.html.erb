@@ -1,24 +1,36 @@
-<p>
-  <strong>Bandname:</strong>
-  <%= @band.bandname %>
-</p>
+<ul class="users">
+  <li>
+    <strong>Bandname:</strong>
+    <%= @band.bandname %>
+  </li>
 
-<p>
-  <strong>Name:</strong>
-  <%= @band.name %>
-</p>
+  <li>
+    <strong>Name:</strong>
+    <%= @band.name %>
+  </li>
 
-<p>
-  <strong>Bio:</strong>
-  <%= @band.bio %>
-</p>
+  <li>
+    <strong>Bio:</strong>
+    <%= @band.bio %>
+  </li>
 
-<p>
-  <strong>Website:</strong>
-  <%= @band.website %>
-</p>
+  <li>
+    <strong>Website:</strong>
+    <%= @band.website %>
+  </li>
 
-<p>
-  <strong>Email:</strong>
-  <%= @band.email %>
-</p>
+  <li>
+    <strong>Email:</strong>
+    <%= @band.email %>
+  </li>
+  <li>
+    <strong>Genres Played:</strong>
+    <ul>
+      <% @band.plays_genres.each do |genre| %>
+        <li>
+          <%= genre %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+</ul>

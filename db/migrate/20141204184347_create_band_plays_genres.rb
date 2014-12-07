@@ -6,5 +6,7 @@ class CreateBandPlaysGenres < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :band_plays_genres, [:band_id, :genre_id], unique: true
   end
 end
