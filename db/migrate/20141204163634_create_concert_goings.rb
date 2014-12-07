@@ -8,5 +8,7 @@ class CreateConcertGoings < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :concert_goings, [:goer_id, :concert_id], unique: true
   end
 end

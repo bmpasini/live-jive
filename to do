@@ -3,11 +3,15 @@ to do
 - user: become fan of a band --> DONE
 - user: define reputation system --> DONE
 - user: display reputation --> DONE
-- concerts page: band can create new concerts
-- concerts page: users with certain reputation can create new concerts
-- concerts page: lineup add bands
-- concerts page: display tags accordinly to bands genres
+- concerts page: band can create new concerts --> DONE
+- concerts page: users with certain reputation can create new concerts --> DONE
+- concerts page: lineup add bands --> DONE
+- concerts page: user can RSVP (button like follow, then display form, maybe using jquery)
+- concerts page: add tickets
+- band: band need to select its genres when creating profile
 - concert lists: user can create a concert list
 - concert lists: user can view all concert lists
 - feed: decide what it is going to looklike
 - search: design it
+- genres: genre page that user can like, show bands that play such genre and concerts that have bands that play that genre
+- band: band need to edit its genres

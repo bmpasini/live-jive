@@ -3,6 +3,7 @@ class BandsController < ApplicationController
   before_action :logged_in_band, only: [:index, :edit, :update, :destroy]
   before_action :correct_band, only: [:edit, :update]
   before_action :admin_user, only: :destroy
+  before_action :if_logged_in, only: :new
 
   def index
     @bands = Band.paginate(page: params[:page])
@@ -54,6 +55,10 @@ class BandsController < ApplicationController
   end
 
   private
+    def if_logged_in
+      redirect_to root_url if logged_in?
+    end
+
     # Confirms a logged-in band.
     def logged_in_band
       unless logged_in?

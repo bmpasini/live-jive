@@ -45,7 +45,7 @@ class Band < ActiveRecord::Base
   # Bands plays in concert?
   def plays_in_concert?(concert)
     concert.lineups.each do |lineup|
-      return true if self.lineups.include? (concert.lineup)
+      return true if self.lineups.include? (lineup)
     end
     false
   end
@@ -81,7 +81,7 @@ class Band < ActiveRecord::Base
 
   # Activates an account.
   def activate
-    update_attribute(:activated, true)
+    update_attribute(:identity_confirmed?, true)
     update_attribute(:activated_at, Time.zone.now)
   end
 

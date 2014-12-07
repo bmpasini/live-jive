@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :if_logged_in, only: [:user_login, :band_login]
+
   def user_login
   end
 
@@ -40,4 +42,9 @@ class SessionsController < ApplicationController
     log_out if logged_in?
     redirect_to root_url
   end
+
+  private
+    def if_logged_in
+      redirect_to root_url if logged_in?
+    end
 end

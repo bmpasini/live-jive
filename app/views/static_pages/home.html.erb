@@ -1,6 +1,10 @@
-<% if logged_in? %>
+<% if logged_in? && user_or_band == "User" %>
   <script type="text/javascript">
     window.location.href="/users/<%= session[:user_id] %>"  // put your correct path in a string here
+  </script>
+<% elsif logged_in? && user_or_band == "Band" %>
+	<script type="text/javascript">
+    window.location.href="/bands/<%= session[:band_id] %>"  // put your correct path in a string here
   </script>
 <% else %>
   <script type="text/javascript">

@@ -32,11 +32,12 @@ Rails.application.routes.draw do
   end
   resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do
-      get :following, :followers, :favorite_bands
+      get :following, :followers, :favorite_bands, :concerts
     end
   end
   resources :user_relationships, only: [:create, :destroy]
   resources :fanships, only: [:create, :destroy]
+  resources :concert_goings, only: [:create, :destroy]
 
   # static pages
   get  'home' => 'static_pages#home'

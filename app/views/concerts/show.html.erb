@@ -1,6 +1,8 @@
 <% provide(:title, @concert.title) %>
 <h1><%= @concert.title %></h1>
 
+<%= render 'concert_goings_form' if logged_in? && user_or_band == "User" %>
+
 <ul class="users">
   <li>
     <strong>Description:</strong>

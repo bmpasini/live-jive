@@ -24,9 +24,9 @@ User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 19
 	               )
 end
 
-Band.create(bandname: "bobmarley", name: "Bob Marley", bio: "The creator of reggae music", website: "http://www.bobmarley.com/", email: "bobmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.now)
-Band.create(bandname: "damianmarley", name: "Damian Marley", bio: "The son of the creator of reggae music", website: "http://www.damianmarley.com/", email: "damianmarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.now)
-Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of the creator of reggae music", website: "http://www.ziggymarley.com/", email: "ziggymarley@gmail.com", password_digest: "password", remember_digest: "password", identity_confirmed?: true, activated_at: Time.now)
+Band.create(bandname: "bobmarley", name: "Bob Marley", bio: "The creator of reggae music", website: "http://www.bobmarley.com/", email: "bobmarley@gmail.com", password: "password", password_confirmation: "password", identity_confirmed?: true, activated_at: Time.now)
+Band.create(bandname: "damianmarley", name: "Damian Marley", bio: "The son of the creator of reggae music", website: "http://www.damianmarley.com/", email: "damianmarley@gmail.com", password: "password", password_confirmation: "password", identity_confirmed?: true, activated_at: Time.now)
+Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of the creator of reggae music", website: "http://www.ziggymarley.com/", email: "ziggymarley@gmail.com", password: "password", password_confirmation: "password", identity_confirmed?: true, activated_at: Time.now)
 
 
 # 297.times do |n|

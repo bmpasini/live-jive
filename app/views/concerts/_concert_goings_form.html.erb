@@ -1,0 +1,9 @@
+<% if user_or_band == "User" %>
+  <div id="follow_form">
+  <% if current_user.is_going_to?(@concert) %>
+    <%= render 'cancel_rsvp' %>
+  <% else %>
+    <%= render 'rsvp' %>
+  <% end %>
+  </div>
+<% end %>

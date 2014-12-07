@@ -107,7 +107,9 @@ class ConcertsController < ApplicationController
 
     # Confirms an admin user.
     def admin_user
-      redirect_to(root_url) unless current_user.is_admin?
+      if user_or_band == "User"
+        redirect_to(root_url) unless current_user.is_admin?
+      end
     end
 
     def trusted_user

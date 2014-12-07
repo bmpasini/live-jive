@@ -121,6 +121,21 @@ class User < ActiveRecord::Base
     favorite_bands.include?(band)
   end
 
+  # RSVP to concert.
+  def rsvp(concert)
+    concert_goings.create(concert_id: concert.id)
+  end
+
+  # Cancel RSVP.
+  def cancel_rsvp(concert)
+    concert_goings.find_by(concert_id: concert.id).destroy
+  end
+
+  # Returns true if the current user is going to concert.
+  def is_going_to?(concert)
+    concerts.include?(concert)
+  end
+
   # Sets the password reset attributes.
   def create_reset_digest
     self.reset_token = User.new_token

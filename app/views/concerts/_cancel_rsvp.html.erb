@@ -1,0 +1,5 @@
+<%= form_for(current_user.concert_goings.find_by(concert_id: @concert.id), html: { method: :delete }, remote: true) do |f| %>
+  <div style="text-align: center;">
+    <%= f.submit "Cancel RSVP", class: "btn", style: "width: 400px;" %>
+  </div>
+<% end %>

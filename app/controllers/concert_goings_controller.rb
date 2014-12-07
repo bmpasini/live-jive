@@ -1,20 +1,20 @@
-class FanshipsController < ApplicationController
+class ConcertGoingsController < ApplicationController
 	before_action :logged_in_user
 
-  def create
-    @band = Band.find(params[:band_id])
-    current_user.become_fan(@band)
+	def create
+    @concert = Concert.find(params[:concert_id])
+    current_user.rsvp(@concert)
     respond_to do |format|
-      format.html { redirect_to @band }
+      format.html { redirect_to @concert }
       format.js
     end
   end
 
   def destroy
-    @band = Fanships.find(params[:id]).band
-    current_user.undo_become_fan(@band)
+    @concert = ConcertGoings.find(params[:id]).concert
+    current_user.cancel_rsvp(@concert)
     respond_to do |format|
-      format.html { redirect_to @band }
+      format.html { redirect_to @concert }
       format.js
     end
   end

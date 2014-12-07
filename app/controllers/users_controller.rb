@@ -3,6 +3,7 @@ class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers, :favorite_bands]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
+  before_action :if_logged_in, only: :new
 
   def index
     @users = User.paginate(page: params[:page])
@@ -71,7 +72,19 @@ class UsersController < ApplicationController
     render 'show_favorite_bands'
   end
 
+  def concerts
+    @title = "Concert RSVPs"
+    @user  = User.find(params[:id])
+    @concerts = @user.concerts.paginate(page: params[:page])
+    @users = @concerts
+    render 'show_concert_goings'
+  end
+
   private
+    def if_logged_in
+      redirect_to root_url if logged_in?
+    end
+
     # Confirms a logged-in user.
     def logged_in_user
       unless logged_in?
