@@ -12,10 +12,14 @@ module ConcertsHelper
   end
 
   def any_reviews?
-  	@concert.concert_goings.each do |rsvp|
-  		return true if rsvp.review
-  	end
-  	false
+    @concert.concert_goings.each do |rsvp|
+      return true if rsvp.review
+    end
+    false
+  end
+
+  def any_tickets?
+    @concert.tickets.any?
   end
 
   def average_rating

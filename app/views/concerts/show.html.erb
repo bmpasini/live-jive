@@ -48,6 +48,30 @@
       <% end %>
     </ul>
   </li>
+  <li>
+    <% if any_tickets? %>
+      <strong>Tickets:</strong>
+      <ul>
+        <% @concert.tickets.each do |ticket| %>
+          <% if ticket.tier %>
+            <li>
+              <strong><%= ticket.tier %></strong>
+            </li>
+            <ul>
+              <li>
+                <strong>Price:</strong>
+                <%= ticket.price %>
+              </li>
+              <li>
+                <strong>How many left:</strong>
+                <%= ticket.how_many_left %>
+              </li>
+            </ul>
+          <% end %>
+        <% end %>
+      </ul>
+    <% end %>
+  </li>
   <% if any_reviews? %>
     <li>
       <strong>User Reviews:</strong>
@@ -56,6 +80,10 @@
           <% if rsvp.review || rsvp.rating %>
             <li>
               <ul>
+                <li>
+                  <strong>Reviewer:</strong>
+                  <%= link_to rsvp.goer.name, rsvp.goer %>
+                </li>
                 <% if rsvp.rating %>
                   <li>
                     <strong>Rating:</strong>
@@ -68,10 +96,6 @@
                     <%= rsvp.review %>
                   </li>
                 <% end %>
-                <li>
-                  <strong>Reviewer:</strong>
-                  <%= link_to rsvp.goer.name, rsvp.goer %>
-                </li>
               </ul>
             </li>
           <% end %>
