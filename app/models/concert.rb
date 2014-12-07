@@ -33,6 +33,10 @@ class Concert < ActiveRecord::Base
 		bands
 	end
 
+	def band_in_concert?(band)
+		bands_playing.include?(band)
+	end
+
 	def genres_played
 		genres = Array.new
 		self.bands_playing.each do |band|

@@ -1,5 +1,9 @@
 class ConcertsController < ApplicationController
   before_action :set_concert, only: [:show, :edit, :update, :destroy]
+  before_action :logged_in, only: [:index, :show, :edit, :update, :destroy]
+  before_action :trusted_user, only: [:edit, :update]
+  before_action :correct_band, only: [:edit, :update, :destroy]
+  before_action :admin_user, only: :destroy
 
   def index
     @concerts = Concert.paginate(page: params[:page])
@@ -13,33 +17,14 @@ class ConcertsController < ApplicationController
   end
 
   def edit
-  end
 
-  def get_bands(band_ids)
-    bands = Array.new
-    band_ids[:band_ids].each_with_index do |band_id, i|
-      p bands << Band.find(band_id.to_i) if i == 1
-    end
-    bands
-  end
-
-  def set_lineups(concert, bands)
-    bands.each do |band|
-      concert.set_lineup(band)
-    end
   end
 
   def create
     @concert = Concert.new(concert_params)
 
     if @concert.save
-      p "********"
-      concert_params
-      p "********"
-      p band_ids_params
-      p "********"
-      p bands = get_bands(band_ids_params)
-      p "********"
+      bands = get_bands(band_ids_params)
       set_lineups(@concert, bands)
       redirect_to @concert
       flash[:success] = 'Concert was successfully created.'
@@ -50,6 +35,9 @@ class ConcertsController < ApplicationController
 
   def update
     if @concert.update(concert_params)
+      erase_lineups(@concert)
+      bands = get_bands(band_ids_params)
+      set_lineups(@concert, bands)
       redirect_to @concert
       flash[:success] = 'Concert was successfully updated.'
     else
@@ -76,5 +64,55 @@ class ConcertsController < ApplicationController
 
     def band_ids_params
       params.require(:concert).permit(band_ids: [])
+    end
+
+    def get_bands(band_ids)
+      bands = Array.new
+      band_ids[:band_ids].each do |band_id|
+        p band_id
+        p bands << Band.find(band_id.to_i) unless band_id == ""
+      end
+      bands
+    end
+
+    def set_lineups(concert, bands)
+      bands.each do |band|
+        concert.set_lineup(band)
+      end
+    end
+
+    def erase_lineups(concert)
+      concert.lineups.each do |lineup|
+        lineup.destroy
+      end
+    end
+
+    # Confirms a logged-in.
+    def logged_in
+      unless logged_in?
+        store_location
+        flash[:danger] = "Please log in."
+        redirect_to band_login_url
+      end
+    end
+
+    # Confirms the correct band.
+    def correct_band
+      if user_or_band == "Band"
+        redirect_to(root_url) unless @concert.band_in_concert?(current_band)
+      else
+        admin_user
+      end
+    end
+
+    # Confirms an admin user.
+    def admin_user
+      redirect_to(root_url) unless current_user.is_admin?
+    end
+
+    def trusted_user
+      if user_or_band == "User"
+        redirect_to(root_url) unless current_user.can_edit_concerts?
+      end
     end
 end

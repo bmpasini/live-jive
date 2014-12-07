@@ -46,6 +46,13 @@ class BandsController < ApplicationController
     redirect_to bands_url
   end
 
+  def fans
+    @title = "Fans"
+    @band  = Band.find(params[:id])
+    @bands = @band.fans.paginate(page: params[:page])
+    render 'show_fans'
+  end
+
   private
     # Confirms a logged-in band.
     def logged_in_band

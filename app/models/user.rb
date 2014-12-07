@@ -54,12 +54,12 @@ class User < ActiveRecord::Base
 
   # User can edit concerts.
   def can_edit_concerts?
-    self.reputation_score >= 8
+    self.reputation_score >= 8 || self.is_admin?
   end
 
   # User can recommend concert lists.
   def can_recommend?
-    self.reputation_score >= 1
+    self.reputation_score >= 1 || self.is_admin?
   end
 
   # Returns the hash digest of the given string.

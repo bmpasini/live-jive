@@ -6,5 +6,7 @@ class CreateLineups < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :lineups, [:band_id, :concert_id], unique: true
   end
 end

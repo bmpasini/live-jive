@@ -1,6 +1,39 @@
-<h1>Editing concert</h1>
+<% provide(:title, 'Edit Concert') %>
+<h1>Edit Concert</h1>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@concert) do |f| %>
+      <%= render 'shared/concert_error_messages' %>
 
-<%= link_to 'Show', @concert %> |
-<%= link_to 'Back', concerts_path %>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control', rows: 7 %>
+
+      <%= f.label :buy_tickets_website %>
+      <%= f.text_field :buy_tickets_website, class: 'form-control' %>
+
+      <%= f.label :cdatetime, "Date and Time" %>
+      <%= f.datetime_select :cdatetime, class: 'form-control' %>
+
+      <%= f.label :location_name %>
+      <%= f.text_field :location_name, class: 'form-control' %>
+
+      <%= f.label :ccity, "City" %>
+      <%= f.text_field :ccity, class: 'form-control' %>
+
+		  <div class="field">
+				<%= f.label :band_ids, "Lineup" %><br />
+  			<%= f.collection_select :band_ids, Band.order(:name), :id, :name, {}, { multiple: true } %>
+			</div>
+	
+      <%= f.submit "Create concert", class: "btn btn-primary" %>
+    <% end %>
+
+    <br>
+
+    <%= link_to "Show all concerts", concerts_path %>
+  </div>
+</div>

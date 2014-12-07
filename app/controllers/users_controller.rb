@@ -67,6 +67,7 @@ class UsersController < ApplicationController
     @title = "Favorite Bands"
     @user  = User.find(params[:id])
     @bands = @user.favorite_bands.paginate(page: params[:page])
+    @users = @bands
     render 'show_favorite_bands'
   end
 
