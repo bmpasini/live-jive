@@ -8,6 +8,12 @@
     <strong>Description:</strong>
     <%= @concert.description %>
   </li>
+  <% unless average_rating.nan? %>
+    <li>
+      <strong>Average Rating:</strong>
+      <%= average_rating %>
+    </li>
+  <% end %>
   <li>
     <strong>Buy Tickets:</strong>
     <%= link_to @concert.buy_tickets_website, url_with_protocol(@concert.buy_tickets_website), :target => "_blank" %>
@@ -42,6 +48,37 @@
       <% end %>
     </ul>
   </li>
+  <% if any_reviews? %>
+    <li>
+      <strong>User Reviews:</strong>
+      <ul>
+        <% @concert.concert_goings.each do |rsvp| %>
+          <% if rsvp.review || rsvp.rating %>
+            <li>
+              <ul>
+                <% if rsvp.rating %>
+                  <li>
+                    <strong>Rating:</strong>
+                    <%= rsvp.rating %>
+                  </li>
+                <% end %>
+                <% if rsvp.review %>
+                  <li>
+                    <strong>Review:</strong>
+                    <%= rsvp.review %>
+                  </li>
+                <% end %>
+                <li>
+                  <strong>Reviewer:</strong>
+                  <%= link_to rsvp.goer.name, rsvp.goer %>
+                </li>
+              </ul>
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
 
   <%= render 'concert_review_form' if logged_in? && user_or_band == "User" %>
 

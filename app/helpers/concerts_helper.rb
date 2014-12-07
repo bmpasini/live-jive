@@ -10,4 +10,19 @@ module ConcertsHelper
 	def url_with_protocol(url)
     /^http/i.match(url) ? url : "http://#{url}"
   end
+
+  def any_reviews?
+  	@concert.concert_goings.each do |rsvp|
+  		return true if rsvp.review
+  	end
+  	false
+  end
+
+  def average_rating
+  	ratings = Array.new
+  	@concert.concert_goings.each do |rsvp|
+  		ratings << rsvp.rating if rsvp.rating
+  	end
+  	ratings.inject{ |sum, el| sum + el }.to_f / ratings.size
+  end
 end
