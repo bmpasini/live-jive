@@ -37,7 +37,7 @@ Rails.application.routes.draw do
   end
   resources :user_relationships, only: [:create, :destroy]
   resources :fanships, only: [:create, :destroy]
-  resources :concert_goings, only: [:create, :destroy]
+  resources :concert_goings, only: [:create, :edit, :update, :destroy]
 
   # static pages
   get  'home' => 'static_pages#home'

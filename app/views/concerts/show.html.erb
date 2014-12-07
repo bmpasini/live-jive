@@ -43,6 +43,10 @@
     </ul>
   </li>
 
+  <%= render 'concert_review_form' if logged_in? && user_or_band == "User" %>
+
+  <br>
+
   <li>
     <%= link_to "Show all concerts", concerts_path %>
   </li>

@@ -10,6 +10,7 @@ class ConcertsController < ApplicationController
   end
 
   def show
+    @concert_going = ConcertGoings.find_by(concert_id: @concert.id, goer_id: current_user.id)
   end
 
   def new
