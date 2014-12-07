@@ -15,10 +15,32 @@ class ConcertsController < ApplicationController
   def edit
   end
 
+  def get_bands(band_ids)
+    bands = Array.new
+    band_ids[:band_ids].each_with_index do |band_id, i|
+      p bands << Band.find(band_id.to_i) if i == 1
+    end
+    bands
+  end
+
+  def set_lineups(concert, bands)
+    bands.each do |band|
+      concert.set_lineup(band)
+    end
+  end
+
   def create
     @concert = Concert.new(concert_params)
 
     if @concert.save
+      p "********"
+      concert_params
+      p "********"
+      p band_ids_params
+      p "********"
+      p bands = get_bands(band_ids_params)
+      p "********"
+      set_lineups(@concert, bands)
       redirect_to @concert
       flash[:success] = 'Concert was successfully created.'
     else
@@ -49,6 +71,10 @@ class ConcertsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def concert_params
-      params.require(:concert).permit(:cdate, :ctime, :location_name, :ccity, :buy_tickets_website)
+      params.require(:concert).permit(:title, :description, :cdatetime, :location_name, :ccity, :buy_tickets_website)
+    end
+
+    def band_ids_params
+      params.require(:concert).permit(band_ids: [])
     end
 end

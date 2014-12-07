@@ -13,17 +13,22 @@
       <%= f.text_area :description, class: 'form-control', rows: 7 %>
 
       <%= f.label :buy_tickets_website %>
-      <%= f.password_field :buy_tickets_website, class: 'form-control' %>
+      <%= f.text_field :buy_tickets_website, class: 'form-control' %>
 
-      <%= f.label :cdatetime, "Password Confirmation" %>
-      <%= f.datetime_field :cdatetime, class: 'form-control' %>
+      <%= f.label :cdatetime, "Date and Time" %>
+      <%= f.datetime_select :cdatetime, class: 'form-control' %>
 
       <%= f.label :location_name %>
       <%= f.text_field :location_name, class: 'form-control' %>
 
-      <%= f.label :ccity %>
+      <%= f.label :ccity, "City" %>
       <%= f.text_field :ccity, class: 'form-control' %>
 
+		  <div class="field">
+				<%= f.label :band_ids, "Lineup" %><br />
+  			<%= f.collection_select :band_ids, Band.order(:name), :id, :name, {}, { multiple: true } %>
+			</div>
+	
       <%= f.submit "Create concert", class: "btn btn-primary" %>
     <% end %>
 

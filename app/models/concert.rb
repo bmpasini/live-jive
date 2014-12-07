@@ -1,18 +1,29 @@
 class Concert < ActiveRecord::Base
-	has_many :lineups
+	attr_accessor :band_tokens, :band_ids
+	attr_reader :band_tokens
+
+	has_many :lineups, dependent: :destroy
 	has_many :bands, through: :lineups
 
-	has_many :concert_goings
+	has_many :concert_goings, dependent: :destroy
 	has_many :goers, through: :concert_goings
 
-	has_many :recommendations
+	has_many :recommendations, dependent: :destroy
 	has_many :concert_lists, through: :recommendations
 	
-	has_many :tickets
+	has_many :tickets, dependent: :destroy
 
 	validates :title, presence: true
 	validates :description, presence: true
 	validates :buy_tickets_website, presence: true
+
+	def set_lineup(band)
+		lineups.create(band_id: band.id)
+	end
+
+	def band_tokens=(ids)
+		self.band_ids = ids.split(",")
+	end
 
 	def bands_playing
 		bands = Array.new
