@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   before_action :set_user, only: [:show, :edit, :update, :destroy, :correct_user]
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers, :favorite_bands]
   before_action :correct_user, only: [:edit, :update]

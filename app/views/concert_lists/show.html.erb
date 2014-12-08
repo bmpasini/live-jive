@@ -1,24 +1,33 @@
+<% provide(:title, @concert_list.title) %>
+<h1><%= @concert_list.title %></h1>
+
 <ul class="users">
-	<li>
-  	<strong>Title:</strong>
-  	<%= @concert_list.title %>
+  <li>
+    <strong>Title:</strong>
+    <%= @concert_list.title %>
   </li>
   <li>
-	  <strong>Description:</strong>
-	  <%= @concert_list.description %>
+    <strong>Description:</strong>
+    <%= @concert_list.description %>
   </li>
   <li>
-	  <strong>List Owner:</strong>
-	  <%= link_to @concert_list.list_owner.name, @concert_list.list_owner %>
+    <strong>List Owner:</strong>
+    <%= link_to @concert_list.list_owner.name, @concert_list.list_owner %>
   </li>
   <li>
-	  <strong>Location:</strong>
-	  <%= @concert.location_name %>
+    <strong>Concerts:</strong>
+    <ul>
+      <% @concert_list.concerts.each do |concert| %>
+        <li>
+          <%=link_to concert.title, concert %>
+        </li>
+      <% end %>
+    </ul>
   </li>
+  
+  <br>
+
   <li>
-	  <strong>Date and Time:</strong>
-	  <%= @concert.cdatetime.to_formatted_s(:long_ordinal) %>
+    <%= link_to "Show all concert lists", concert_lists_path %>
   </li>
 </ul>
-
-<%= link_to 'Back', concert_path %>

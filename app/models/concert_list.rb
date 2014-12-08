@@ -5,4 +5,8 @@ class ConcertList < ActiveRecord::Base
 	belongs_to :list_owner, class_name: "User"
 
 	validates :list_owner_id, presence: true
+
+	def set_recommendation(concert)
+		recommendations.create(concert_id: concert.id)
+	end
 end
