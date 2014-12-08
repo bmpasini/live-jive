@@ -9,4 +9,10 @@ class ConcertList < ActiveRecord::Base
 	def set_recommendation(concert)
 		recommendations.create(concert_id: concert.id)
 	end
+
+	def reset_recommendations
+		self.recommendations.each do |recommendation|
+			recommendation.destroy
+		end
+	end
 end

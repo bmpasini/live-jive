@@ -18,6 +18,7 @@ class ConcertsController < ApplicationController
   end
 
   def edit
+    session[:return_to] ||= request.referer
   end
 
   def create
@@ -39,7 +40,7 @@ class ConcertsController < ApplicationController
       erase_lineups(@concert)
       bands = get_bands(band_ids_params)
       set_lineups(@concert, bands)
-      redirect_to @concert
+      redirect_to session.delete(:return_to)
       flash[:success] = 'Concert was successfully updated.'
     else
       render :edit
@@ -48,8 +49,12 @@ class ConcertsController < ApplicationController
 
   def destroy
     @concert.destroy
-    redirect_to concerts_url
     flash[:success] = 'Concert was successfully destroyed.'
+    if user_or_band == "User"
+      redirect_to concerts_url
+    else
+      redirect_to band_path(current_band)
+    end
   end
 
   private

@@ -1,0 +1,21 @@
+<li id="concert-<%= concert.id %>">
+	<span class="content"><%= link_to concert.title, concert %>
+		<% if user_or_band == "Band" %>
+			<% if current_band?(@band) %>
+				| <%= link_to "Edit", edit_concert_url %>
+			<% end %>
+			<% if current_band?(band) %>
+				| <%= link_to "Delete", concert, method: :delete, data: { confirm: "You sure?" } %>
+			<% end %>
+		<% else %>
+			<% if current_user.is_admin? %>
+				| <%= link_to "Delete", concert, method: :delete, data: { confirm: "You sure?" } %>
+			<% end %>
+		<% end %>
+	</span>
+	<span class="content"><%= concert.description %></span>
+	<span class="content"><%= concert.cdatetime.to_formatted_s(:long_ordinal) %></span>
+	<span class="timestamp">
+		Posted <%= time_ago_in_words(concert.created_at) %> ago
+	</span>
+</li>

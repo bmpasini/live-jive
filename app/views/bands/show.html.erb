@@ -14,7 +14,14 @@
     </aside>
     <div class="col-md-8">
       <%= render 'become_fan_form' if logged_in? && user_or_band == "User" %>
-      <%= render 'users/feed' %>
+    </div>
+    <div class="col-md-8">
+      <% if user_or_band == "Band" %>
+        <% if current_band?(@band) %>
+          <%= render 'bands/new_concert' %>
+        <% end %>
+      <% end %>
+      <%= render 'bands/concerts' %>
     </div>
   </div>
 <% else %>

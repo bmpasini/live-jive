@@ -1,6 +1,6 @@
 class Band < ActiveRecord::Base
   attr_accessor :remember_token, :activation_token, :reset_token, :genre_ids
-  
+
   before_save  :downcase_email
   before_create :create_activation_digest
 
@@ -32,6 +32,12 @@ class Band < ActiveRecord::Base
 
   def set_genre(genre)
     band_plays_genres.create(genre_id: genre.id)
+  end
+
+  def reset_genres
+    self.band_plays_genres.each do |band_plays_genre|
+      band_plays_genre.destroy
+    end
   end
 
   def plays_genre?(genre)

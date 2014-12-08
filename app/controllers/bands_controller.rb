@@ -15,6 +15,7 @@ class BandsController < ApplicationController
   end
 
   def show
+    @concerts = @band.concerts.paginate(page: params[:page], per_page: 10)
   end
 
   def new
@@ -42,6 +43,7 @@ class BandsController < ApplicationController
   def update
     if @band.update_attributes(band_params)
       genres = get_genres(genre_ids_params)
+      @band.reset_genres
       set_genres(@band, genres)
       flash[:success] = "Band was successfully updated."
       redirect_to @band

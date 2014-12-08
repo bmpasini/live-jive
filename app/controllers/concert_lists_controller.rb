@@ -18,9 +18,7 @@ class ConcertListsController < ApplicationController
   end
 
   def create
-    p "*********"
-    p concert_list_params[:list_owner_id] = current_user.id
-    p "*********"
+    concert_list_params[:list_owner_id] = current_user.id
     @concert_list = ConcertList.new(concert_list_params)
     if @concert_list.save
       concerts = get_concerts(concert_ids_params)
@@ -34,6 +32,7 @@ class ConcertListsController < ApplicationController
   def update
     if @concert_list.update(concert_list_params)
       concerts = get_concerts(concert_ids_params)
+      @concert_list.reset_recommendations
       set_recommendations(@concert_list, concerts)
       redirect_to @concert_list, notice: 'Concert list was successfully updated.'
     else

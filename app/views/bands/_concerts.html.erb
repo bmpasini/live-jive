@@ -1,0 +1,7 @@
+<% if @band.concerts.any? %>
+	<h3>Concerts [<%= @band.concerts.count %>]</h3>
+	<ol class="microposts">
+		<%= render @concerts %>
+	</ol>
+	<%= will_paginate @concerts %>
+<% end %>

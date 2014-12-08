@@ -80,16 +80,16 @@ Concert.create(title: "Awesome concert 3", description: "Popular show", location
 end
 
 # 300.times do |n|
-10.times do |n|
+Concert.all.each do |concert|
 	["VIP", "Confort", "Pavillion", "Front Row", "Lounge"].each do |tier|
-	  concert_id = n
+	  concert_id = concert.id
 	  price = 50+rand(500)
 	  how_many_left = rand(1000)
 	  p Tickets.create!(tier:  tier,
-	  						 price: price,
-	               how_many_left: how_many_left,
-	               concert_id: concert_id
-	               )
+			  						  price: price,
+			                how_many_left: how_many_left,
+			                concert_id: concert_id
+			               )
 	end
 end
 
@@ -116,7 +116,7 @@ Band.all.each do |band|
 	User.all.each do |u|
 		user_ids <<	u.id
 	end
-	5.times do
+	(1+rand(20)).times do
 		fan_id = user_ids.delete_at(rand(user_ids.length))
 		p Fanships.create(band_id: band_id, fan_id: fan_id)
 	end
@@ -127,15 +127,15 @@ end
 # Lineup.create(band_id: 1, concert_id: 2)
 # Lineup.create(band_id: 2, concert_id: 3)
 # Lineup.create(band_id: 3, concert_id: 3)
-Concert.all.each do |concert|
-	concert_id = concert.id
-	band_ids = Array.new
-	Band.all.each do |b|
-		band_ids <<	b.id
+Band.all.each do |band|
+	band_id = band.id
+	concert_ids = Array.new
+	Concert.all.each do |c|
+		concert_ids <<	c.id
 	end
-	(1+rand(4)).times do
-		band_id = band_ids.delete_at(rand(band_ids.length))
-		p Lineup.create(band_id: band_id, concert_id: concert_id)
+	(1+rand(20)).times do
+		concert_id = concert_ids.delete_at(rand(concert_ids.length))
+		p Lineup.create(concert_id: concert_id, band_id: band_id)
 	end
 end
 
@@ -148,7 +148,7 @@ User.all.each do |goer|
 	Concert.all.each do |c|
 		concert_ids <<	c.id
 	end
-	5.times do
+	(1+rand(20)).times do
 		concert_id = concert_ids.delete_at(rand(concert_ids.length))
 		p ConcertGoings.create(goer_id: goer_id, concert_id: concert_id)
 	end
@@ -157,7 +157,7 @@ end
 ConcertList.create(title: "Reggae Shows", description: "Just the best of reggae.", list_owner_id: 1)
 ConcertList.create(title: "Bob Marley and Sons", description: "All shows of the Marley Family.", list_owner_id: 1)
 User.all.each do |list_owner|
-	7.times do |n|
+	(1+rand(20)).times do |n|
 	  title  = Faker::Company.name
 	  description = Faker::Lorem.paragraph(1)
 	  list_owner_id = list_owner.id
@@ -180,7 +180,7 @@ Concert.all.each do |concert|
 		ConcertList.all.each do |c|
 			concert_list_ids <<	c.id
 		end
-	5.times do
+	(1+rand(20)).times do
 		concert_list_id = concert_list_ids.delete_at(rand(concert_list_ids.length))
 		p Recommendation.create(concert_id: concert_id, concert_list_id: concert_list_id)
 	end
@@ -198,7 +198,7 @@ User.all.each do |user|
 	Genre.all.each do |c|
 		genre_ids <<	c.id
 	end
-	5.times do
+	(1+rand(10)).times do
 		genre_id = genre_ids.delete_at(rand(genre_ids.length))
 		p UserLikesGenre.create(user_id: user_id, genre_id: genre_id)
 	end
@@ -213,7 +213,7 @@ Band.all.each do |band|
 	Genre.all.each do |c|
 		genre_ids <<	c.id
 	end
-	2.times do
+	(1+rand(4)).times do
 		genre_id = genre_ids.delete_at(rand(genre_ids.length))
 		p BandPlaysGenre.create(band_id: band_id, genre_id: genre_id)
 	end
@@ -227,7 +227,7 @@ User.all.each do |follower|
 	User.all.each do |f|
 		followed_ids <<	f.id if f.id != follower_id
 	end
-	10.times do
+	(1+rand(20)).times do
 		followed_id = followed_ids.delete_at(rand(followed_ids.length))
 		p UserRelationship.create(follower_id: follower_id, followed_id: followed_id)
 	end
