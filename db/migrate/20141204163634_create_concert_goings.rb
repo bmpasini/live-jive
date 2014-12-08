@@ -1,7 +1,7 @@
 class CreateConcertGoings < ActiveRecord::Migration
   def change
     create_table :concert_goings do |t|
-      t.string :review
+      t.text :review
       t.integer :rating
       t.references :goer
       t.references :concert

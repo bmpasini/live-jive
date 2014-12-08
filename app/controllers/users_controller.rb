@@ -11,6 +11,12 @@ class UsersController < ApplicationController
 
   def show
     @concert_lists = @user.concert_lists.paginate(page: params[:page], per_page: 10)
+    if current_user?(@user)
+      @concerts_users = @user.concerts_from_followed_users_who_like_the_same_genres
+      @concerts_system = @user.popular_concerts_from_users_who_like_the_same_genres
+      @bands_popular = @user.popular_bands_that_play_genres_the_user_like
+      @bands_with_good_concerts = @user.bands_with_good_concerts_that_play_genres_the_user_like
+    end
   end
 
   def new

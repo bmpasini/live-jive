@@ -291,10 +291,17 @@ input {
       padding: 5px 0;
     }
   }
+  .content_concert {
+    display: block;
+  }
   .timestamp {
     color: $gray-light;
     display: block;
     margin-left: 60px;
+  }
+  .timestamp_concert {
+    color: $gray-light;
+    display: block;
   }
   .gravatar {
     float: left;
@@ -303,16 +310,3 @@ input {
   }
 }
 
-aside {
-  textarea {
-    height: 100px;
-    margin-bottom: 5px;
-  }
-}
-
-span.picture {
-  margin-top: 10px;
-  input {
-    border: 0;
-  }
-}

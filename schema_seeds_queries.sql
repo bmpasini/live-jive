@@ -451,7 +451,6 @@ WHERE concerts.id IN (SELECT concerts2.id
 SELECT concerts.id, cdatetime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at FROM concerts WHERE concerts.id IN (SELECT concerts2.id FROM concerts concerts2 INNER JOIN recommendations ON (recommendations.concert_id = concerts2.id) INNER JOIN lineups ON (lineups.concert_id = concerts2.id) INNER JOIN bands ON (bands.id = lineups.band_id) INNER JOIN band_plays_genres ON (band_plays_genres.band_id = bands.id) INNER JOIN genres ON (genres.id = band_plays_genres.genre_id) WHERE genres.genre IN (SELECT genres2.genre FROM genres genres2 INNER JOIN user_likes_genres ON (user_likes_genres.genre_id = genres2.id) INNER JOIN users ON (users.id = user_likes_genres.user_id) WHERE users.id = 1) AND concerts2.id IN (SELECT recommendations2.concert_id FROM recommendations recommendations2 WHERE recommendations2.concert_list_id IN (SELECT concert_lists.id FROM concert_lists WHERE concert_lists.list_owner_id IN (SELECT users2.id FROM users users2 WHERE users2.id IN (SELECT user_relationships.followed_id FROM user_relationships WHERE user_relationships.follower_id = 1)))))
 
 
-
 -- Suggest bands that were liked by other users that had similar tastes to this user in the past
 -- Here we are going to retrieve all bands who play genres that the user likes and that have at least 2 other fans
 
@@ -476,7 +475,7 @@ WHERE bands.id IN (SELECT bands2.id
 
 SELECT bands.id,bandname,bands.name,bands.bio,website,bands.email,bands.created_at,bands.updated_at
 FROM bands
-WHERE bands.id IN (SELECT bands2.id
+WHERE bands.id IN (SELECT DISTINCT bands2.id
                    FROM bands bands2
                    INNER JOIN lineups ON (lineups.band_id = bands2.id)
                    INNER JOIN concerts ON (concerts.id = lineups.concert_id)
@@ -487,11 +486,14 @@ WHERE bands.id IN (SELECT bands2.id
                                           FROM genres genres2
                                           INNER JOIN user_likes_genres ON (user_likes_genres.genre_id = genres2.id)
                                           INNER JOIN users ON (users.id = user_likes_genres.user_id)
-                                          WHERE users.id = ?)
+                                          WHERE users.id = 1)
                    AND concert_goings.rating IS NOT NULL
-                   GROUP BY concert_goings.id
+                   GROUP BY concert_goings.concert_id
                    HAVING AVG(concert_goings.rating) >= 4);
+
 -- Bind to (user_id)
+
+SELECT bands.id,bandname,bands.name,bands.bio,website,bands.email,bands.created_at,bands.updated_at FROM bands WHERE bands.id IN (SELECT bands2.id FROM bands bands2 INNER JOIN lineups ON (lineups.band_id = bands2.id) INNER JOIN concerts ON (concerts.id = lineups.concert_id) INNER JOIN concert_goings ON (concert_goings.concert_id = concerts.id) INNER JOIN band_plays_genres ON (band_plays_genres.band_id = bands2.id) INNER JOIN genres ON (genres.id = band_plays_genres.genre_id) WHERE genres.genre IN (SELECT genres2.genre FROM genres genres2 INNER JOIN user_likes_genres ON (user_likes_genres.genre_id = genres2.id) INNER JOIN users ON (users.id = user_likes_genres.user_id) WHERE users.id = 1) AND concert_goings.rating IS NOT NULL GROUP BY concert_goings.concert_id HAVING AVG(concert_goings.rating) >= 4);
 
 
 -- ---

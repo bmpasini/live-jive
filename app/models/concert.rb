@@ -17,6 +17,16 @@ class Concert < ActiveRecord::Base
 	validates :description, presence: true
 	validates :buy_tickets_website, presence: true
 
+	def average_rating
+  	ratings = Array.new
+  	if concert_goings.any?
+	  	concert_goings.each do |rsvp|
+	  		ratings << rsvp.rating if rsvp.rating
+	  	end
+  	end
+  	ratings.inject{ |sum, el| sum + el }.to_f / ratings.size
+  end
+
 	def set_ticket(ticket)
 		tickets.create(ticket)
 	end

@@ -147,11 +147,13 @@ User.all.each do |goer|
 	goer_id = goer.id
 	concert_ids = Array.new
 	Concert.all.each do |c|
-		concert_ids <<	c.id
+		concert_ids << c.id
 	end
 	(1+rand(20)).times do
 		concert_id = concert_ids.delete_at(rand(concert_ids.length))
-		p ConcertGoings.create(goer_id: goer_id, concert_id: concert_id)
+		rating = 1+rand(5) if (rand(2).to_bool && (Concert.find(concert_id).cdatetime < Time.now))
+		review = Faker::Lorem.paragraph(1) if (rand(2).to_bool && (Concert.find(concert_id).cdatetime < Time.now))
+		p ConcertGoings.create(goer_id: goer_id, concert_id: concert_id, rating: rating, review: review)
 	end
 end
 

@@ -15,13 +15,15 @@
     <div class="col-md-8">
       <%= render 'follow_form' if logged_in? && user_or_band == "User" %>
     </div>
-    <% if user_or_band == "User" %>
-      <% if current_user?(@user) %>
-        <%= render 'users/feed' %>
-      <% else %>
-        <%= render 'users/concert_list_handler' %>
+    <div class="col-md-8">
+      <% if user_or_band == "User" %>
+        <% if current_user?(@user) %>
+          <%= render 'users/feed' %>
+        <% else %>
+          <%= render 'users/concert_list_handler' %>
+        <% end %>
       <% end %>
-    <% end %>
+    </div>
   </div>
 <% else %>
   <script type="text/javascript">
