@@ -1,0 +1,9 @@
+<li id="concert_list-<%= concert_list.id %>">
+  <%= link_to gravatar_for(concert_list.list_owner, size: 50), concert_list.list_owner %>
+  <span class="user"><%= link_to concert_list.list_owner.name, concert_list.list_owner %></span>
+  <span class="content"><%= link_to concert_list.title, concert_list %></span>
+  <span class="content"><%= concert_list.description %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(concert_list.created_at) %> ago.
+  </span>
+</li>

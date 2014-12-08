@@ -9,7 +9,7 @@ User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 19
   password = "password"
   city = Faker::Address.city
   yob = 1950+rand(55)
-  rep = rand(10)
+  rep = 1+rand(10)
   p User.create!(name: name,
 	  						 username: username,
 	               email: email,
@@ -18,7 +18,6 @@ User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 19
 	               city_of_birth: city,
 	               year_of_birth: yob,
 	               reputation_score: rep,
-	               is_admin?: false,
 	               penultimate_login_at: Time.now,
 	               last_login_at: Time.now
 	               )
@@ -34,8 +33,10 @@ Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of 
   name  = Faker::Company.name
   bandname = name.split(' ').join.downcase
   email = Faker::Internet.email
+  # email_hash = "cbd36e1ddee20d1580f560ea2a08e1b5"
+  # api = Gravatar.new("bmpasini@gmail.com", :api_key => email_hash)
   password = "password"
-  bio = Faker::Lorem.paragraph(1).slice(0, 100)
+  bio = Faker::Lorem.paragraph(1)
   website = Faker::Internet.domain_name
   p Band.create!(name:  name,
 	  						 bandname: bandname,
@@ -56,14 +57,15 @@ Concert.create(title: "Awesome concert 3", description: "Popular show", location
 # 297.times do |n|
 97.times do |n|
   title = Faker::Lorem.sentence(2, true, 2)[0..-2]
-  description = Faker::Lorem.paragraph(1).slice(0, 100)
+  description = Faker::Lorem.paragraph(1)
   location_name = Faker::Address.street_name
+  cdatetime = [Time.now, 10.minutes.ago, 1.hour.ago, 2.hours.ago, 1.day.ago, 1.month.ago, 1.year.ago, 2.years.ago, 10.minutes.from_now, 1.hour.from_now, 2.hours.from_now, 2.hours.from_now, 1.day.from_now, 1.month.from_now, 1.year.from_now, 2.years.from_now].sample
   ccity = Faker::Address.city
   website = Faker::Internet.domain_name
   p Concert.create!(title: title,
 		  						  description: description,
 		                location_name: location_name,
-		                cdatetime: Time.now,
+		                cdatetime: cdatetime,
 		                ccity: ccity,
 		                buy_tickets_website: website,
 		                )
@@ -149,7 +151,7 @@ ConcertList.create(title: "Bob Marley and Sons", description: "All shows of the 
 # 298.times do |n|
 98.times do |n|
   title  = Faker::Company.name
-  description = Faker::Lorem.paragraph(1).slice(0, 100)
+  description = Faker::Lorem.paragraph(1)
   list_owner_id = 1 + rand(99)
   p ConcertList.create!(title:  title,
   						 description: description,

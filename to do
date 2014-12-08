@@ -8,11 +8,12 @@ to do
 - concerts page: lineup add bands --> DONE
 - concerts page: user can RSVP (button like follow, then display form, maybe using jquery) --> DONE
 - concerts page: add tickets --> DONE
-- band: need to select its genres when creating profile
+- band: need to select its genres when creating profile --> DONE
 - concert lists: user can create a concert list
 - concert lists: user can view all concert lists
 - feed: decide what it is going to looklike
 - search: design it
 - genres: genre page that user can like, show bands that play such genre and concerts that have bands that play that genre --> DONE
 - band: band need to edit its genres --> DONE
-- user: user likes genre
+- user: user likes genre --> DONE
+- add list of gravatars

@@ -20,6 +20,8 @@ ActiveRecord::Schema.define(version: 20141204184347) do
     t.datetime "updated_at"
   end
 
+  add_index "band_plays_genres", ["band_id", "genre_id"], name: "index_band_plays_genres_on_band_id_and_genre_id", unique: true, using: :btree
+
   create_table "bands", force: true do |t|
     t.string   "bandname"
     t.string   "name"
@@ -76,6 +78,8 @@ ActiveRecord::Schema.define(version: 20141204184347) do
     t.datetime "updated_at"
   end
 
+  add_index "fanships", ["band_id", "fan_id"], name: "index_fanships_on_band_id_and_fan_id", unique: true, using: :btree
+
   create_table "genres", force: true do |t|
     t.string   "genre"
     t.string   "subgenre"
@@ -99,6 +103,8 @@ ActiveRecord::Schema.define(version: 20141204184347) do
     t.datetime "updated_at"
   end
 
+  add_index "recommendations", ["concert_list_id", "concert_id"], name: "index_recommendations_on_concert_list_id_and_concert_id", unique: true, using: :btree
+
   create_table "tickets", force: true do |t|
     t.string   "tier"
     t.integer  "price"
@@ -114,6 +120,8 @@ ActiveRecord::Schema.define(version: 20141204184347) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "user_likes_genres", ["user_id", "genre_id"], name: "index_user_likes_genres_on_user_id_and_genre_id", unique: true, using: :btree
 
   create_table "user_relationships", force: true do |t|
     t.integer  "follower_id"
@@ -135,11 +143,11 @@ ActiveRecord::Schema.define(version: 20141204184347) do
     t.string   "remember_digest"
     t.string   "reset_digest"
     t.string   "city_of_birth"
-    t.integer  "reputation_score"
-    t.boolean  "is_admin?"
+    t.integer  "reputation_score",     default: 0
+    t.boolean  "is_admin?",            default: false
     t.datetime "reset_sent_at"
-    t.datetime "penultimate_login_at"
-    t.datetime "last_login_at"
+    t.datetime "penultimate_login_at", default: '2014-12-08 04:06:23'
+    t.datetime "last_login_at",        default: '2014-12-08 04:06:23'
     t.datetime "created_at"
     t.datetime "updated_at"
   end

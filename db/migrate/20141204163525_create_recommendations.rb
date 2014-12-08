@@ -6,5 +6,7 @@ class CreateRecommendations < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :recommendations, [:concert_list_id, :concert_id], unique: true
+    end
   end
-end

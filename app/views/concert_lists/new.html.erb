@@ -1,5 +1,27 @@
-<h1>New concert_list</h1>
+<% provide(:title, 'New Concert List') %>
+<h1>New Concert List</h1>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@concert_list) do |f| %>
+      <%= render 'shared/concert_list_error_messages' %>
 
-<%= link_to 'Back', concert_lists_path %>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control', rows: 7 %>
+
+		  <div class="field">
+				<%= f.label :concert_ids, "Concert" %><br />
+  			<%= f.collection_select :concert_ids, Concert.order(:title), :id, :title, {}, { multiple: true } %>
+			</div>
+
+      <%= f.submit "Create concert list", class: "btn btn-primary" %>
+    <% end %>
+
+    <br>
+
+    <%= link_to "Show all concerts", concerts_path %>
+  </div>
+</div>

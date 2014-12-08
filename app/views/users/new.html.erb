@@ -9,6 +9,9 @@
       <%= f.label :username %>
       <%= f.text_field :username, class: 'form-control' %>
 
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+
       <%= f.label :email %>
       <%= f.text_field :email, class: 'form-control' %>
 
@@ -17,6 +20,19 @@
 
       <%= f.label :password_confirmation, "Password Confirmation" %>
       <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+      <%= f.label :city_of_birth %>
+      <%= f.text_field :city_of_birth, class: 'form-control' %>
+
+      <%= f.label :year_of_birth %>
+      <%= f.text_field :year_of_birth, class: 'form-control' %>
+
+      <div class="field">
+        <%= f.label :genre_ids, "Genres Liked" %><br />
+        <%= f.collection_select :genre_ids, Genre.order(:subgenre), :id, :subgenre, {}, { multiple: true } %>
+      </div>
+
+      
 
       <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>

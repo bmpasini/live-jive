@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  
+
   before_action :set_user, only: [:show, :edit, :update, :destroy, :correct_user]
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers, :favorite_bands]
   before_action :correct_user, only: [:edit, :update]
@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    debugger
+    @concert_lists = @user.concert_lists.paginate(page: params[:page])
   end
 
   def new
@@ -28,7 +28,6 @@ class UsersController < ApplicationController
     if @user.save
       genres = get_genres(genre_ids_params)
       set_genres(@user, genres)
-      @user.update(is_admin?: false, reputation_score: 0)
       log_in @user
       flash[:success] = "Welcome to LiveJive!"
       redirect_to @user
@@ -40,7 +39,9 @@ class UsersController < ApplicationController
 
   def update
     if @user.update_attributes(user_params)
-      flash[:success] = "User was successfully updated." 
+      genres = get_genres(genre_ids_params)
+      set_genres(@user, genres)
+      flash[:success] = "User was successfully updated."
       redirect_to @user
     else
       render :edit

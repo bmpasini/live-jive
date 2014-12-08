@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
 
   # root
-  # root 'sessions#user_login'
   root 'static_pages#home'
 
   # signups
@@ -48,5 +47,5 @@ Rails.application.routes.draw do
   get  'help' => 'static_pages#help'
   get  'about' => 'static_pages#about'
   get  'contact' => 'static_pages#contact'
-  
+
 end

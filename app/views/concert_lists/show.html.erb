@@ -1,15 +1,15 @@
 <ul class="users">
 	<li>
   	<strong>Title:</strong>
-  	<%= @concert.title %>
+  	<%= @concert_list.title %>
   </li>
   <li>
 	  <strong>Description:</strong>
-	  <%= @concert.description %>
+	  <%= @concert_list.description %>
   </li>
   <li>
-	  <strong>Buy Tickets:</strong>
-	  <%= link_to concert.buy_tickets_website, "#{concert.buy_tickets_website}", :target => "_blank" %>
+	  <strong>List Owner:</strong>
+	  <%= link_to @concert_list.list_owner.name, @concert_list.list_owner %>
   </li>
   <li>
 	  <strong>Location:</strong>
