@@ -1,39 +1,51 @@
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
+<ul class="users">
+  <li>
+    <strong>Username:</strong>
+    <%= @user.username %>
+  </li>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+  <li>
+    <strong>Name:</strong>
+    <%= @user.name %>
+  </li>
 
-<p>
-  <strong>Email:</strong>
-  <%= link_to @user.email, "maito:#{@user.email}", :target => "_blank" %>
-</p>
+  <li>
+    <strong>Email:</strong>
+    <%= link_to @user.email, "maito:#{@user.email}", :target => "_blank" %>
+  </li>
 
-<p>
-  <strong>City of Birth:</strong>
-  <%= @user.city_of_birth %>
-</p>
+  <li>
+    <strong>City of Birth:</strong>
+    <%= @user.city_of_birth %>
+  </li>
 
-<p>
-  <strong>Year of Birth:</strong>
-  <%= @user.year_of_birth %>
-</p>
+  <li>
+    <strong>Year of Birth:</strong>
+    <%= @user.year_of_birth %>
+  </li>
 
-<p>
-  <strong>Reputation:</strong>
-  <%= @user.reputation_score %>
-</p>
+  <li>
+    <strong>Reputation:</strong>
+    <%= @user.reputation_score %>
+  </li>
 
-<p>
-  <strong>Current Login:</strong>
-  <%= time_ago_in_words(@user.last_login_at) %> ago
-</p>
+  <li>
+    <strong>Current Login:</strong>
+    <%= time_ago_in_words(@user.last_login_at) %> ago
+  </li>
 
-<p>
-  <strong>Last Login:</strong>
-  <%= time_ago_in_words(@user.penultimate_login_at) %> ago
-</p>
+  <li>
+    <strong>Last Login:</strong>
+    <%= time_ago_in_words(@user.penultimate_login_at) %> ago
+  </li>
+  <li>
+    <strong>Genres Liked:</strong>
+    <ul>
+      <% @user.likes_genres.each do |genre| %>
+        <li>
+          <%= genre %>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+</ul>

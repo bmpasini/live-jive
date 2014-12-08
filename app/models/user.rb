@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   attr_accessor :remember_token, :reset_token, :genre_ids
-  
+
   before_save :downcase_email
 
 	has_many :fanships, foreign_key: :fan_id, dependent: :destroy
@@ -38,6 +38,15 @@ class User < ActiveRecord::Base
 
   def likes_genre?(genre)
     self.genres.include?(genre)
+  end
+
+  # Genres that band plays.
+  def likes_genres
+    genres = Array.new
+    self.favorite_genres.each do |genre|
+      genres << genre.printable
+    end
+    genres.uniq
   end
 
   # Set reputation score.
