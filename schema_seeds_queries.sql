@@ -358,7 +358,7 @@ WHERE genre = ? AND ccity = ? AND cdate >= DATE(NOW()) AND cdate <= DATE_ADD(DAT
 
 -- See all concerts from a specific subgenre in a certain city in the following week (next 7 days from now)
 
-SELECT concerts.id, cdate, ctime, location, buy_tickets_website, concerts.created_at, concerts.updated_at
+SELECT concerts.id, cdate, ctime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
 FROM concerts
 INNER JOIN lineups ON (concerts.id = lineups.concert_id)
 INNER JOIN bands ON (bands.id = lineups.band_id)
@@ -369,7 +369,7 @@ WHERE subgenre = ? AND ccity = ? AND cdate >= DATE(NOW()) AND cdate <= DATE_ADD(
 
 -- See all concerts recommended by people they follow during the next month (next 1 month from now)
 
-SELECT concerts.id, cdate, ctime, location, buy_tickets_website, concerts.created_at, concerts.updated_at
+SELECT concerts.id, cdate, ctime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
 FROM concerts
 INNER JOIN recommendations ON (recommendations.concert_id = concerts.id)
 INNER JOIN concert_lists ON (concert_lists.id = recommendations.concert_list_id)
@@ -380,7 +380,7 @@ WHERE users.id = ? AND cdate <= DATE_ADD(DATE(NOW()),INTERVAL 1 MONTH);
 
 -- See all newly posted concerts since the last time they logged in
 
-SELECT concerts.id, cdate, ctime, location, buy_tickets_website, concerts.created_at, concerts.updated_at
+SELECT concerts.id, cdate, ctime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
 FROM concerts
 WHERE concerts.created_at >= (SELECT last_login_at
                               FROM users
@@ -398,7 +398,28 @@ WHERE concerts.created_at >= (SELECT last_login_at
 -- Recommend to the user those concerts in the categories the user likes that were recommended in many lists by other users
 -- Here we are going to retrieve all concerts that have bands who play genres that the user likes, which have been included in at least 2 recommended lists
 
-SELECT concerts.id, cdate, ctime, location, buy_tickets_website, concerts.created_at, concerts.updated_at
+SELECT concerts.id, cdatetime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
+FROM concerts
+WHERE concerts.id IN (SELECT concerts2.id
+                      FROM concerts concerts2
+                      INNER JOIN recommendations ON (recommendations.concert_id = concerts2.id)
+                      INNER JOIN lineups ON (lineups.concert_id = concerts2.id)
+                      INNER JOIN bands ON (bands.id = lineups.band_id)
+                      INNER JOIN band_plays_genres ON (band_plays_genres.band_id = bands.id)
+                      INNER JOIN genres ON (genres.id = band_plays_genres.genre_id)
+                      WHERE genres.genre IN (SELECT genres2.genre
+                                             FROM genres genres2
+                                             INNER JOIN user_likes_genres ON (user_likes_genres.genre_id = genres2.id)
+                                             INNER JOIN users ON (users.id = user_likes_genres.user_id)
+                                             WHERE users.id = 1)
+                      GROUP BY concerts2.id, recommendations.concert_list_id
+                      HAVING COUNT(*) >= 5);
+-- Bind to (user_id)
+
+-- Recommend to the user those concerts in the categories the user likes that were recommended in lists of followed users
+-- Here we are going to retrieve all concerts that have bands who play genres that the user likes, which have been included in recommended lists of users he follows
+
+SELECT concerts.id, cdatetime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
 FROM concerts
 WHERE concerts.id IN (SELECT concerts2.id
                       FROM concerts concerts2
@@ -412,9 +433,24 @@ WHERE concerts.id IN (SELECT concerts2.id
                                              INNER JOIN user_likes_genres ON (user_likes_genres.genre_id = genres2.id)
                                              INNER JOIN users ON (users.id = user_likes_genres.user_id)
                                              WHERE users.id = ?)
-                      GROUP BY concerts2.id, recommendations.concert_list_id
-                      HAVING COUNT(*) >= 2);
--- Bind to (user_id)
+                      AND concerts2.id IN (SELECT recommendations2.concert_id
+                                           FROM recommendations recommendations2
+                                           WHERE recommendations2.concert_list_id IN (SELECT concert_lists.id
+                                                                                      FROM concert_lists
+                                                                                      WHERE concert_lists.list_owner_id IN (SELECT users2.id
+                                                                                                              FROM users users2
+                                                                                                              WHERE users2.id IN (SELECT user_relationships.followed_id
+                                                                                                                                  FROM user_relationships
+                                                                                                                                  WHERE user_relationships.follower_id = ?
+                                                                                                                                 )
+                                                                                                              )
+                                                                                      )
+                                          )
+                        )
+
+SELECT concerts.id, cdatetime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at FROM concerts WHERE concerts.id IN (SELECT concerts2.id FROM concerts concerts2 INNER JOIN recommendations ON (recommendations.concert_id = concerts2.id) INNER JOIN lineups ON (lineups.concert_id = concerts2.id) INNER JOIN bands ON (bands.id = lineups.band_id) INNER JOIN band_plays_genres ON (band_plays_genres.band_id = bands.id) INNER JOIN genres ON (genres.id = band_plays_genres.genre_id) WHERE genres.genre IN (SELECT genres2.genre FROM genres genres2 INNER JOIN user_likes_genres ON (user_likes_genres.genre_id = genres2.id) INNER JOIN users ON (users.id = user_likes_genres.user_id) WHERE users.id = 1) AND concerts2.id IN (SELECT recommendations2.concert_id FROM recommendations recommendations2 WHERE recommendations2.concert_list_id IN (SELECT concert_lists.id FROM concert_lists WHERE concert_lists.list_owner_id IN (SELECT users2.id FROM users users2 WHERE users2.id IN (SELECT user_relationships.followed_id FROM user_relationships WHERE user_relationships.follower_id = 1)))))
+
+
 
 -- Suggest bands that were liked by other users that had similar tastes to this user in the past
 -- Here we are going to retrieve all bands who play genres that the user likes and that have at least 2 other fans

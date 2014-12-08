@@ -34,11 +34,29 @@ class User < ActiveRecord::Base
   validates :reputation_score, numericality: { only_integer: true, less_than_or_equal_to: 10 }
 
   def feed
-    following_ids = "SELECT followed_id FROM user_relationships WHERE follower_id = :user_id"
 
-    Concert.where("user_id IN (#{following_ids}) OR user_id = :user_id", user_id: id)
   end
-  
+
+  # Retrieve all concerts that have bands who play genres that the user likes, which have been included in recommended lists of users he follows
+  def concerts_from_followed_users_who_like_the_same_genres
+    following_ids = "SELECT user_relationships.followed_id FROM user_relationships WHERE user_relationships.follower_id = :user_id"
+    list_owner_ids = "SELECT users2.id FROM users users2 WHERE users2.id IN (#{following_ids})"
+    concert_list_ids = "SELECT concert_lists.id FROM concert_lists WHERE concert_lists.list_owner_id IN (#{list_owner_ids})"
+    recommended_concert_ids = "SELECT recommendations2.id FROM recommendations recommendations2 WHERE recommendations2.concert_list_id IN (#{concert_list_ids})"
+    genre_ids = "SELECT genres2.genre FROM genres genres2 INNER JOIN user_likes_genres ON (user_likes_genres.genre_id = genres2.id) INNER JOIN users ON (users.id = user_likes_genres.user_id) WHERE users.id = :user_id"
+    concert_ids = 
+    "SELECT concerts2.id FROM concerts concerts2 INNER JOIN recommendations ON (recommendations.concert_id = concerts2.id) INNER JOIN lineups ON (lineups.concert_id = concerts2.id) INNER JOIN bands ON (bands.id = lineups.band_id) INNER JOIN band_plays_genres ON (band_plays_genres.band_id = bands.id) INNER JOIN genres ON (genres.id = band_plays_genres.genre_id) WHERE genres.genre IN (#{genre_ids}) AND concerts2.id IN (#{recommended_concert_ids})"
+    Concert.where("id IN (#{concert_ids})", user_id: self.id)
+  end
+
+  # Retrieve all concerts that have bands who play genres that the user likes, which have been included in at least 5 recommended lists
+
+  def popular_concerts_from_users_who_like_the_same_genres
+    genre_ids = "SELECT genres2.genre FROM genres genres2 INNER JOIN user_likes_genres ON (user_likes_genres.genre_id = genres2.id) INNER JOIN users ON (users.id = user_likes_genres.user_id) WHERE users.id = :user_id"
+    concert_ids = "SELECT concerts2.id FROM concerts concerts2 INNER JOIN recommendations ON (recommendations.concert_id = concerts2.id) INNER JOIN lineups ON (lineups.concert_id = concerts2.id) INNER JOIN bands ON (bands.id = lineups.band_id) INNER JOIN band_plays_genres ON (band_plays_genres.band_id = bands.id) INNER JOIN genres ON (genres.id = band_plays_genres.genre_id) WHERE genres.genre IN (#{genre_ids}) GROUP BY concerts2.id, recommendations.concert_list_id HAVING COUNT(*) >= 5"
+    Concert.where("id IN (#{concert_ids})", user_id: self.id)
+  end
+
   def set_genre(genre)
     user_likes_genres.create(genre_id: genre.id)
   end
