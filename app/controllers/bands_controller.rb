@@ -29,9 +29,11 @@ class BandsController < ApplicationController
     @band = Band.new(band_params)
 
     if @band.save
+      genres = get_genres(genre_ids_params)
+      set_genres(@band, genres)
       @band.send_activation_email
       flash[:info] = "LiveJive must verify your identity. Please check your email."
-      redirect_to root_url
+      redirect_to band_login_url
     else
       render :new
     end
@@ -39,7 +41,9 @@ class BandsController < ApplicationController
 
   def update
     if @band.update_attributes(band_params)
-      flash[:success] = "Band was successfully updated." 
+      genres = get_genres(genre_ids_params)
+      set_genres(@band, genres)
+      flash[:success] = "Band was successfully updated."
       redirect_to @band
     else
       render :edit
@@ -60,6 +64,22 @@ class BandsController < ApplicationController
   end
 
   private
+
+    def set_genres(band, genres)
+      genres.each do |genre|
+        band.set_genre(genre)
+      end
+    end
+
+    def get_genres(genre_ids)
+      genres = Array.new
+      genre_ids[:genre_ids].each do |genre_id|
+        p genre_id
+        p genres << Genre.find(genre_id.to_i) unless genre_id == ""
+      end
+      genres
+    end
+
     def if_logged_in
       redirect_to root_url if logged_in?
     end
@@ -91,5 +111,9 @@ class BandsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def band_params
       params.require(:band).permit(:bandname, :name, :bio, :website, :email, :password)
+    end
+
+    def genre_ids_params
+      params.require(:band).permit(genre_ids: [])
     end
 end

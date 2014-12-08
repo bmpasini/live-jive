@@ -9,11 +9,11 @@ class CreateUsers < ActiveRecord::Migration
       t.string :remember_digest
       t.string :reset_digest
       t.string :city_of_birth
-      t.integer :reputation_score
-      t.boolean :is_admin?
+      t.integer :reputation_score, default: 0
+      t.boolean :is_admin?, default: false
       t.datetime :reset_sent_at
-      t.datetime :penultimate_login_at
-      t.datetime :last_login_at
+      t.datetime :penultimate_login_at, default: Time.now
+      t.datetime :last_login_at, default: Time.now
 
       t.timestamps
     end

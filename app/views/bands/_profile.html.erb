@@ -16,12 +16,12 @@
 
   <li>
     <strong>Website:</strong>
-    <%= @band.website %>
+    <%= link_to @band.website, url_with_protocol(@band.website), :target => "_blank" %>
   </li>
 
   <li>
     <strong>Email:</strong>
-    <%= @band.email %>
+    <%= link_to @band.email, "maito:#{@band.email}", :target => "_blank" %>
   </li>
   <li>
     <strong>Genres Played:</strong>

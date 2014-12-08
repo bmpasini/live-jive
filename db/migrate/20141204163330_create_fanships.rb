@@ -6,5 +6,7 @@ class CreateFanships < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :fanships, [:band_id, :fan_id], unique: true
   end
 end

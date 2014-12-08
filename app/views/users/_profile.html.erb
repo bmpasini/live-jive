@@ -10,7 +10,7 @@
 
 <p>
   <strong>Email:</strong>
-  <%= @user.email %>
+  <%= link_to @user.email, "maito:#{@user.email}", :target => "_blank" %>
 </p>
 
 <p>

@@ -6,5 +6,7 @@ class CreateUserLikesGenres < ActiveRecord::Migration
 
       t.timestamps
     end
+
+    add_index :user_likes_genres, [:user_id, :genre_id], unique: true
   end
 end

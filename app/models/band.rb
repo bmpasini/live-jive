@@ -1,6 +1,7 @@
 class Band < ActiveRecord::Base
-  attr_accessor :remember_token, :activation_token, :reset_token
-  before_save   :downcase_email
+  attr_accessor :remember_token, :activation_token, :reset_token, :genre_ids
+  
+  before_save  :downcase_email
   before_create :create_activation_digest
 
 	has_many :lineups
@@ -29,7 +30,9 @@ class Band < ActiveRecord::Base
 
   validates :bio,  presence: true, length: { maximum: 1000 }
 
-  scope :desc, order("bands.created_at DESC")
+  def set_genre(genre)
+    band_plays_genres.create(genre_id: genre.id)
+  end
 
   def plays_genre?(genre)
     self.genres.include?(genre)

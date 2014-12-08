@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  
   before_action :set_user, only: [:show, :edit, :update, :destroy, :correct_user]
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers, :favorite_bands]
   before_action :correct_user, only: [:edit, :update]
@@ -25,6 +26,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
+      genres = get_genres(genre_ids_params)
+      set_genres(@user, genres)
       @user.update(is_admin?: false, reputation_score: 0)
       log_in @user
       flash[:success] = "Welcome to LiveJive!"
@@ -81,6 +84,21 @@ class UsersController < ApplicationController
   end
 
   private
+    def set_genres(user, genres)
+      genres.each do |genre|
+        user.set_genre(genre)
+      end
+    end
+
+    def get_genres(genre_ids)
+      genres = Array.new
+      genre_ids[:genre_ids].each do |genre_id|
+        p genre_id
+        p genres << Genre.find(genre_id.to_i) unless genre_id == ""
+      end
+      genres
+    end
+
     def if_logged_in
       redirect_to root_url if logged_in?
     end
@@ -112,5 +130,9 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:username, :name, :year_of_birth, :email, :password, :city_of_birth)
+    end
+
+    def genre_ids_params
+      params.require(:user).permit(genre_ids: [])
     end
 end

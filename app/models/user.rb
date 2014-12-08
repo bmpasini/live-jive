@@ -1,6 +1,7 @@
 class User < ActiveRecord::Base
-  attr_accessor :remember_token, :reset_token
-  before_save   :downcase_email
+  attr_accessor :remember_token, :reset_token, :genre_ids
+  
+  before_save :downcase_email
 
 	has_many :fanships, foreign_key: :fan_id, dependent: :destroy
 	has_many :favorite_bands, through: :fanships, source: :band
@@ -30,6 +31,14 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, allow_blank: true
 
   validates :reputation_score, numericality: { only_integer: true, less_than_or_equal_to: 10 }
+
+  def set_genre(genre)
+    user_likes_genres.create(genre_id: genre.id)
+  end
+
+  def likes_genre?(genre)
+    self.genres.include?(genre)
+  end
 
   # Set reputation score.
   def set_reputation_score

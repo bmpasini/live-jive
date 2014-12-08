@@ -27,6 +27,11 @@
       <%= f.label :bio, "Short Bio" %>
       <%= f.text_area :bio, class: 'form-control', rows: 7 %>
 
+      <div class="field">
+        <%= f.label :genre_ids, "Genres" %><br />
+        <%= f.collection_select :genre_ids, Genre.order(:subgenre), :id, :subgenre, {}, { multiple: true } %>
+      </div>
+
       <%= f.submit "Create my account", class: "btn btn-primary" %>
     <% end %>
 
