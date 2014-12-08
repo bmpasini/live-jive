@@ -14,16 +14,14 @@
     </aside>
     <div class="col-md-8">
       <%= render 'follow_form' if logged_in? && user_or_band == "User" %>
-      <%= render 'users/feed' %>
     </div>
-    <div class="col-md-8">
-      <% if user_or_band == "User" %>
-        <% if current_user?(@user) %>
-          <%= render 'users/new_concert_list' %>
-        <% end %>
+    <% if user_or_band == "User" %>
+      <% if current_user?(@user) %>
+        <%= render 'users/feed' %>
+      <% else %>
+        <%= render 'users/concert_list_handler' %>
       <% end %>
-      <%= render 'users/concert_lists' %>
-    </div>
+    <% end %>
   </div>
 <% else %>
   <script type="text/javascript">

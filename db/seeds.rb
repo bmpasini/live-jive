@@ -1,8 +1,9 @@
 seeding_start = Time.now
 User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password: "password", password_confirmation: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: true, penultimate_login_at: Time.now, last_login_at: Time.now)
+User.create(username: "brunomacedo", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@gmail.com", password: "password", password_confirmation: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: false, penultimate_login_at: Time.now, last_login_at: Time.now)
 
-# 499.times do |n|
-99.times do |n|
+# 498.times do |n|
+98.times do |n|
   name  = Faker::Name.name
   username = name.split(' ').join('.').downcase
   until User.find_by(username: username).nil?

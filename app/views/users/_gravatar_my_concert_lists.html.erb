@@ -1,0 +1,10 @@
+<h1>
+	<%= gravatar_for @user %>
+	<%= @user.name %>
+	<span style="font-size: 14px; margin-top: 10px;"><b>Reputation Score:</b> <%= @user.reputation_score %></span>
+	<% if current_user?(@user) %>
+		<span style="font-size: 14px; margin-top: 10px;"> <%= link_to "Home Page", user_path(@user) %></span>
+	<% else %>
+		<span style="font-size: 14px; margin-top: 10px;"> <%= link_to "Profile Page", user_path(@user) %></span>
+	<% end %>
+</h1>

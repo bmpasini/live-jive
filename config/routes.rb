@@ -35,6 +35,8 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show, :edit, :update, :destroy] do
     member do
       get :following, :followers, :favorite_bands, :concerts
+      get :concert_lists
+      get :feed
     end
   end
   resources :user_relationships, only: [:create, :destroy]

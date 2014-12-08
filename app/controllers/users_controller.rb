@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :correct_user]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :correct_user, :concert_lists]
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy, :following, :followers, :favorite_bands]
   before_action :correct_user, only: [:edit, :update]
   before_action :admin_user, only: :destroy
@@ -81,6 +81,10 @@ class UsersController < ApplicationController
     @concerts = @user.concerts.paginate(page: params[:page])
     @users = @concerts
     render 'show_concert_goings'
+  end
+
+  def concert_lists
+    @concert_lists = @user.concert_lists.paginate(page: params[:page], per_page: 10)
   end
 
   private
