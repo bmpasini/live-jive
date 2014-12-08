@@ -1,7 +1,16 @@
 <li id="concert_list-<%= concert_list.id %>">
-  <span class="content"><%= link_to concert_list.title, concert_list %></span>
-  <span class="content"><%= concert_list.description %></span>
-  <span class="timestamp">
-    Posted <%= time_ago_in_words(concert_list.created_at) %> ago.
-  </span>
+	<span class="content"><%= link_to concert_list.title, concert_list %>
+		<% if user_or_band == "User" %>
+			<% if current_user?(@user) %>
+				| <%= link_to "Edit", edit_concert_list_url %>
+			<% end %>
+			<% if current_user.is_admin? || current_user?(user) %>
+				| <%= link_to "Delete", concert_list, method: :delete, data: { confirm: "You sure?" } %>
+			<% end %>
+		<% end %>
+	</span>
+	<span class="content"><%= concert_list.description %></span>
+	<span class="timestamp">
+		Posted <%= time_ago_in_words(concert_list.created_at) %> ago
+	</span>
 </li>

@@ -6,7 +6,7 @@
     <%= form_for(@concert_list) do |f| %>
       <%= render 'shared/concert_list_error_messages' %>
 			
-      <%= hidden_field_tag :list_owner_id, current_user.id %>
+      <%= f.hidden_field :list_owner_id, value: current_user.id %>
 
       <%= f.label :title %>
       <%= f.text_field :title, class: 'form-control' %>
@@ -24,6 +24,6 @@
 
     <br>
 
-    <%= link_to "Show all concerts", concerts_path %>
+    <%= link_to "Go back", user_path(current_user) %>
   </div>
 </div>

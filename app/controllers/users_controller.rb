@@ -10,7 +10,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @concert_lists = @user.concert_lists.paginate(page: params[:page])
+    @concert_lists = @user.concert_lists.paginate(page: params[:page], per_page: 10)
   end
 
   def new

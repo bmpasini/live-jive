@@ -1,6 +1,29 @@
-<h1>Editing concert_list</h1>
+<% provide(:title, 'Edit Concert List') %>
+<h1>Edit Concert List</h1>
 
-<%= render 'form' %>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@concert_list) do |f| %>
+      <%= render 'shared/concert_list_error_messages' %>
+			
+      <%= hidden_field_tag :list_owner_id, current_user.id %>
 
-<%= link_to 'Show', @concert_list %> |
-<%= link_to 'Back', concert_lists_path %>
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+
+      <%= f.label :description %>
+      <%= f.text_area :description, class: 'form-control', rows: 7 %>
+
+		  <div class="field">
+				<%= f.label :concert_ids, "Concerts" %><br />
+  			<%= f.collection_select :concert_ids, Concert.order(:title), :id, :title, {}, { multiple: true } %>
+			</div>
+
+      <%= f.submit "Edit concert list", class: "btn btn-primary" %>
+    <% end %>
+
+    <br>
+
+    <%= link_to "Go back", user_path(current_user) %>
+  </div>
+</div>

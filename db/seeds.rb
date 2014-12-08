@@ -5,6 +5,10 @@ User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 19
 99.times do |n|
   name  = Faker::Name.name
   username = name.split(' ').join('.').downcase
+  until User.find_by(username: username).nil?
+  	name  = Faker::Name.name
+  	username = name.split(' ').join.downcase
+  end
   email = Faker::Internet.email
   password = "password"
   city = Faker::Address.city
@@ -32,6 +36,10 @@ Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of 
 97.times do |n|
   name  = Faker::Company.name
   bandname = name.split(' ').join.downcase
+  until Band.find_by(bandname: bandname).nil?
+  	name  = Faker::Company.name
+  	bandname = name.split(' ').join.downcase
+  end
   email = Faker::Internet.email
   # email_hash = "cbd36e1ddee20d1580f560ea2a08e1b5"
   # api = Gravatar.new("bmpasini@gmail.com", :api_key => email_hash)
@@ -148,15 +156,16 @@ end
 
 ConcertList.create(title: "Reggae Shows", description: "Just the best of reggae.", list_owner_id: 1)
 ConcertList.create(title: "Bob Marley and Sons", description: "All shows of the Marley Family.", list_owner_id: 1)
-# 298.times do |n|
-98.times do |n|
-  title  = Faker::Company.name
-  description = Faker::Lorem.paragraph(1)
-  list_owner_id = 1 + rand(99)
-  p ConcertList.create!(title:  title,
-  						 description: description,
-  						 list_owner_id: list_owner_id
-               )
+User.all.each do |list_owner|
+	7.times do |n|
+	  title  = Faker::Company.name
+	  description = Faker::Lorem.paragraph(1)
+	  list_owner_id = list_owner.id
+	  p ConcertList.create!(title:  title,
+	  						 description: description,
+	  						 list_owner_id: list_owner_id
+	               )
+	end
 end
 
 

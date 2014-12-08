@@ -18,6 +18,9 @@ class ConcertListsController < ApplicationController
   end
 
   def create
+    p "*********"
+    p concert_list_params[:list_owner_id] = current_user.id
+    p "*********"
     @concert_list = ConcertList.new(concert_list_params)
     if @concert_list.save
       concerts = get_concerts(concert_ids_params)
