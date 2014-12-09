@@ -13,7 +13,10 @@ class UsersController < ApplicationController
     @concert_lists = @user.concert_lists.paginate(page: params[:page], per_page: 10)
     if current_user?(@user)
       @concerts_users = @user.concerts_from_followed_users_who_like_the_same_genres
-      @concerts_system = @user.popular_concerts_from_users_who_like_the_same_genres
+      @concerts_system = Array.new
+      @concerts_system += @user.popular_concerts_from_users_who_like_the_same_genres unless @user.popular_concerts_from_users_who_like_the_same_genres.nil?
+      @concerts_system += @user.top_recommended_concerts unless @user.top_recommended_concerts.nil?
+      @concerts_system += @user.concerts_recommended_by_users_with_similar_tastes unless @user.concerts_recommended_by_users_with_similar_tastes.nil?
       @bands_popular = @user.popular_bands_that_play_genres_the_user_like
       @bands_with_good_concerts = @user.bands_with_good_concerts_that_play_genres_the_user_like
     end

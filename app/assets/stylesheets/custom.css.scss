@@ -310,3 +310,16 @@ input {
   }
 }
 
+/* concerts */
+
+.concert {
+    margin-top: 5em;
+    padding-top: 0;
+  }
+.content_concert {
+    display: block;
+  }
+.timestamp_concert {
+    color: $gray-light;
+    display: block;
+  }

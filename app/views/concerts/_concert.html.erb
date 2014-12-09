@@ -1,5 +1,5 @@
 <li id="micropost-<%= concert.id %>">
-	<span class="user">
+	<span class="concert">
 	<%= link_to concert.title, concert %>
 		<% if user_or_band == "Band" %>
 			<% if current_band.plays_in_concert?(concert) %>

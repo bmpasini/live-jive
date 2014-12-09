@@ -1,6 +1,13 @@
 <% provide(:title, 'All Concerts') %>
 <h1>All Concerts</h1>
 
+<%= form_tag concerts_path, :method => 'get' do %>
+  <p>
+    <%= text_field_tag :search, params[:search], { style: "width: 200px;" } %>
+    <br>
+    <%= submit_tag "Search", { name: nil, style: "width: 200px; margin-top: -1px;" } %>
+  </p>
+<% end %>
 <p><%= link_to "Advanced Search", new_search_path %></p>
 
 <%= will_paginate %>

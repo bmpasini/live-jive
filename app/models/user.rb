@@ -46,11 +46,23 @@ class User < ActiveRecord::Base
   end
 
   # Retrieve all concerts that have bands who play genres that the user likes, which have been included in at least 4 recommended lists
-
+  
   def popular_concerts_from_users_who_like_the_same_genres
     genre_ids = "SELECT genres2.genre FROM genres genres2 INNER JOIN user_likes_genres ON (user_likes_genres.genre_id = genres2.id) INNER JOIN users ON (users.id = user_likes_genres.user_id) WHERE users.id = :user_id"
-    concert_ids = "SELECT concerts2.id FROM concerts concerts2 INNER JOIN recommendations ON (recommendations.concert_id = concerts2.id) INNER JOIN lineups ON (lineups.concert_id = concerts2.id) INNER JOIN bands ON (bands.id = lineups.band_id) INNER JOIN band_plays_genres ON (band_plays_genres.band_id = bands.id) INNER JOIN genres ON (genres.id = band_plays_genres.genre_id) WHERE genres.genre IN (#{genre_ids}) GROUP BY concerts2.id, recommendations.concert_list_id HAVING COUNT(*) >= 4"
+    concert_ids = "SELECT concerts2.id FROM concerts concerts2 INNER JOIN recommendations ON (recommendations.concert_id = concerts2.id) INNER JOIN lineups ON (lineups.concert_id = concerts2.id) INNER JOIN bands ON (bands.id = lineups.band_id) INNER JOIN band_plays_genres ON (band_plays_genres.band_id = bands.id) INNER JOIN genres ON (genres.id = band_plays_genres.genre_id) WHERE genres.genre IN (#{genre_ids}) GROUP BY concerts2.id, recommendations.concert_list_id HAVING COUNT(*) >= 10"
     Concert.where("id IN (#{concert_ids})", user_id: self.id)
+  end
+
+  # Retrieve the 3 top recommended concerts
+  def top_recommended_concerts
+    concert_ids = "SELECT concerts2.id FROM concerts concerts2 INNER JOIN recommendations ON (recommendations.concert_id = concerts2.id) GROUP BY concerts2.id HAVING COUNT(*) >= 10 ORDER BY COUNT(*) DESC LIMIT 3"
+    concert_ids_fix = "SELECT c1.id FROM concerts c1 INNER JOIN (#{concert_ids}) c2 ON (c1.id = c2.id)"
+    Concert.where("id IN (#{concert_ids_fix})")
+  end
+
+  # Retrieve all concerts recommended by some user who have at least 3 favorite genres in common
+  def concerts_recommended_by_users_with_similar_tastes
+
   end
 
   # Retrieve all bands who play genres that the user likes and that have at least 10 other fans

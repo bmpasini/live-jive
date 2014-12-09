@@ -1,246 +1,95 @@
 subGenreId,parentGenreId,name
 1153,0,
-979,759,doom metal
-1087,790,old school hardcore
-422,417,alt-country - general
 574,543,jazz pop
-1016,844,industrial - general
-811,716,glitch - general
-773,688,classic rock
-625,586,folk punk
+1016,844,industrial
 977,301,electronica
-408,404,dj/producer - general
-886,758,celtic - general
+886,758,celtic
 1142,34,music
-1129,835,contemporary classical music
-45,45,author - general
-677,615,crust punk
 1130,676,dance
 872,741,soul jazz
-864,747,folk-pop - general
 417,412,rap
-1084,759,groove metal
-915,755,psychedelic folk
-1041,854,comedian-rapper-producer - general
-803,673,melodic punk
-1057,862,blues - general
-32,32,comix - general
+1057,862,blues
 1046,759,black metal
 784,688,rock 'n roll
 1110,530,detroit rap
 941,754,hard rock
 704,638,modern rock
 1097,856,folk
-863,707,gothic metal
-1068,865,country - general
-750,676,dance - general
-1098,873,americana - general
-530,507,90s rock
-720,615,garage punk
-1094,861,adult alternative
+1068,865,country
 1149,806,pop
-653,609,arena rock
-1146,670,39;s famed The Second City comedy improv group
-880,756,afropop - general
-428,422,banda - general
-1109,878,techno - general
-779,678,delta blues
-1101,530,hardcore rap
-990,823,freak folk
-893,591,trance music
+880,756,afropop
+1109,878,techno
 1026,806,brazilian pop music
-1063,806,indie pop
-737,664,jazz fusion
-874,753,goregrind - general
-835,732,gospel - general
+835,732,gospel
 660,554,eurodance
-939,786,dubstep - general
-1,1,dj - general
-764,673,anarcho-punk
-680,625,latin - general
-921,742,texas country
-1020,759,progressive metal
-987,822,jazz - general
-746,672,remix - general
-682,627,fusion - general
-834,731,drone - general
+939,786,dubstep
+680,625,latin
+987,822,jazz
 1141,865,country
-1028,34,surf music
-1145,822,jazz
-1039,1,dj
-136,136,comedian - general
-603,549,funk rock
-621,585,cumbia - general
+621,585,cumbia
 658,606,vocal jazz
-1151,644,club
-1011,840,soundtrack - general
-825,707,thrash metal
+1011,840,soundtrack
 933,754,progressive rock
-963,670,stand-up comedy
-866,749,noise - general
-1082,836,space rock
-1128,880,singer-songwriter - general
 951,754,heavy rock
 919,742,country music
-44,44,dancer - general
 1055,849,progressive trance
-666,610,cello rock
 1126,627,fusion
-493,479,50s - general
-1072,867,bluegrass - general
-948,793,electropop - general
+493,479,50s
 925,774,punk
-684,629,soul - general
+684,629,soul
 1035,732,gospel
 913,754,pop rock
-992,826,punk - general
+992,826,punk
 1123,850,indie
-448,441,progressive - general
+448,441,progressive
 1116,759,death metal
-39,39,rapper - general
-341,337,jrock
-433,427,ska - general
+39,39,rapper
 829,603,emo
-560,535,crunk - general
-905,770,70s - general
+905,770,70s
 730,631,house
 1127,862,blues
-1093,870,psychedelic - general
-926,776,downtempo - general
-464,437,synthpop
-1104,876,post-hardcore - general
-1066,864,grindcore - general
-718,652,opera - general
-644,604,90s - general
-891,761,chiptune - general
+1093,870,psychedelic
+718,652,opera
+644,604,90s
 733,653,modern jazz
-940,787,flamenco - general
-867,750,nwobhm - general
-715,615,horror punk
-802,707,power metal
+940,787,flamenco
 922,754,alternative rock
-900,741,mainstream jazz
 659,606,jazz piano
-1042,855,avant-garde - general
-692,614,gypsy jazz
-1040,853,rockabilly - general
 1036,441,progressive
-656,610,rockabilly
-827,727,break - general
-1124,611,funk
-738,587,noise rock
-877,745,heartland rock
-876,703,chicago house
-1038,806,british pop
-31,31,swing - general
-1083,836,piano rock
-810,715,lo-fi - general
 1108,836,indie rock
-843,733,southern rock
-1056,759,melodic death metal
-873,732,gospel choir
-486,474,roots - general
-967,806,pop - general
+486,474,roots
+967,806,pop
 550,451,latin
-1023,848,metalcore - general
-1102,875,http://www.myspace.com/oyasaba - general
-1073,759,sludge metal
-1099,874,alternative - general
-1106,877,brutal death metal
+1099,874,alternative
 1033,836,garage rock
 1150,759,metal
-1070,866,synthpop - general
-616,545,post-punk
-837,734,Let& - general
-697,44,dancer
 910,678,electric blues
 763,679,melodic rock
-1001,835,classical - general
-410,406,disco - general
-34,34,music - general
-911,772,house - general
-732,657,stoner rock
-0,0, - general
-1075,43,singer
-1085,869,alternative hip hop
-57,57,vocalist - general
+911,772,house
 1105,835,classical
-788,704,singer/songwriter - general
-1136,39,rapper
 1122,836,rock
-7,7,d.j - general
-708,644,club - general
-923,741,avant-garde jazz
+7,7,DJ
 1125,872,electronic
-688,614,latin jazz
 1031,759,heavy metal
-43,43,singer - general
-858,673,new york punk
-22,22,bass - general
 648,606,jazz vocal
-661,611,funk - general
+661,611,funk
 907,678,acoustic blues
-1096,872,electronic - general
-885,757,shoegaze - general
-1025,850,indie - general
-1095,871,rock/alternative/experimental - general
-904,742,country rock
-1086,865,contemporary country
-1032,759,speed metal
-969,629,neo soul
-908,771,breakbeat - general
-924,754,psychedelic rock
-1002,836,rock - general
-744,670,comedy - general
-945,790,hardcore - general
-1133,759,ambient black metal
-1047,856,folk - general
-1027,851,r&b - general
-965,781,contemporary jazz
-1006,826,pop punk
-701,615,german punk
-1134,881,http://www.myspace.com/danceswithwhitegirls - general
-1012,841,gothic - general
-985,670,comedy
+1096,872,electronic
+1025,850,indie
+945,790,hardcore
+1027,851,R&B
+1012,841,gothic
 1118,474,roots
-731,662,jrock - general
-887,759,metal - general
-122,122,00s - general
-903,729,dark ambient
-25,25,comic - general
-881,754,art rock
-865,748,screamo - general
-482,471,(hysterical) - general
 1121,629,soul
-1024,849,trance - general
-1115,879,ambient - general
+1024,849,trance
+1115,879,ambient
 1074,843,psychedelic pop
-9,9,sax - general
-127,127,60s - general
-1144,836,Female fronted rock band who&
-643,603,emo - general
-767,688,college rock
-1120,822,new orleans jazz
-443,136,comedian
-1119,34,children music
-657,589,metalcore
-458,450,80s - general
-952,794,dream pop
-833,673,hardcore punk
-668,610,roots rock
-1037,34,gypsy music
-906,768,uk hardcore
+127,127,60s
+643,603,emo
+458,450,80s
 1137,793,electropop
-1081,57,vocalist
 1135,790,hardcore
 710,637,smooth jazz
-994,828,symphony - general
-1147,874,alternative
-909,754,glam rock
-1060,836,polish rock
-883,754,folk rock
-685,630,dub - general
-669,607,indie folk
-555,530,rap - general
-812,717,electro - general
-698,620,blues-rock
+685,630,dub
+555,530,rap
+812,717,electro

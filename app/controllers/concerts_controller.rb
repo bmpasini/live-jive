@@ -16,7 +16,7 @@ class ConcertsController < ApplicationController
   end
 
   def index
-    @concerts = Concert.paginate(page: params[:page])
+    @concerts = Concert.search(params[:search]).paginate(page: params[:page])
   end
 
   def show

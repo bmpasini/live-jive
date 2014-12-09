@@ -17,6 +17,14 @@ class Concert < ActiveRecord::Base
 	validates :description, presence: true
 	validates :buy_tickets_website, presence: true
 
+	def self.search(search)
+	  if search
+	    where("title LIKE ? OR description LIKE ?", "%#{search}%", "%#{search}%")
+	  else
+	    all
+	  end
+	end
+
 	def average_rating
   	ratings = Array.new
   	if concert_goings.any?

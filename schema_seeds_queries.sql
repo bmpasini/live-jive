@@ -412,7 +412,7 @@ WHERE concerts.created_at >= (SELECT last_login_at
 -- techniques in this area to get some ideas on what to do here.
 
 -- Recommend to the user those concerts in the categories the user likes that were recommended in many lists by other users
--- Here we are going to retrieve all concerts that have bands who play genres that the user likes, which have been included in at least 2 recommended lists
+-- Here we are going to retrieve all concerts that have bands who play genres that the user likes, which have been included in at least 5 recommended lists
 SELECT concerts.id, cdatetime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
 FROM concerts
 WHERE concerts.id IN (SELECT concerts2.id
@@ -507,6 +507,70 @@ WHERE bands.id IN (SELECT DISTINCT bands2.id
 
 SELECT bands.id,bandname,bands.name,bands.bio,website,bands.email,bands.created_at,bands.updated_at FROM bands WHERE bands.id IN (SELECT bands2.id FROM bands bands2 INNER JOIN lineups ON (lineups.band_id = bands2.id) INNER JOIN concerts ON (concerts.id = lineups.concert_id) INNER JOIN concert_goings ON (concert_goings.concert_id = concerts.id) INNER JOIN band_plays_genres ON (band_plays_genres.band_id = bands2.id) INNER JOIN genres ON (genres.id = band_plays_genres.genre_id) WHERE genres.genre IN (SELECT genres2.genre FROM genres genres2 INNER JOIN user_likes_genres ON (user_likes_genres.genre_id = genres2.id) INNER JOIN users ON (users.id = user_likes_genres.user_id) WHERE users.id = 1) AND concert_goings.rating IS NOT NULL GROUP BY concert_goings.concert_id HAVING AVG(concert_goings.rating) >= 4);
 
+-- MT ADDITION 12/8/2014
+--------------------------
+-- The system should help users to find upcoming concerts that might be of interest to them, even if the user is not (yet) a fan of the band or type of music, 
+-- by incorporating some (naive) recommender system technology and search mechanisms into the system.
+--
+
+-- Here we are going to retrieve the 3 top recommended concerts
+SELECT *
+FROM concerts
+WHERE concerts.id IN (SELECT concerts2.id
+                      FROM concerts concerts2
+                      INNER JOIN recommendations ON (recommendations.concert_id = concerts2.id)
+                      GROUP BY concerts2.id
+                      HAVING COUNT(*) >= 10
+                      ORDER BY COUNT(*) DESC LIMIT 3);
+
+-- Here we are going to retrieve the 3 top recommended concerts
+SELECT c1.id
+FROM concerts c1 INNER JOIN (SELECT concerts2.id
+                             FROM concerts concerts2
+                             INNER JOIN recommendations ON (recommendations.concert_id = concerts2.id)
+                             GROUP BY concerts2.id
+                             HAVING COUNT(*) >= 10
+                             ORDER BY COUNT(*) DESC LIMIT 3) c2 ON (c1.id = c2.id);
+
+
+-- Here we are going to retrieve all concerts recommended by some user who have at least 3 favorite genres in common
+SELECT (concerts.id, title, description, cdatetime, location_name, ccity, buy_tickets_website, concerts.created_at, concerts.updated_at)
+FROM concerts
+WHERE concerts.id IN (SELECT DISTINCT recommendations.concert_id
+                      FROM recommendations
+                      INNER JOIN concert_lists ON (concert_lists.id = recommendations.concert_list_id)
+                      INNER JOIN users users3 ON (users3.id = concert_lists.list_owner_id)
+                      WHERE users3.id IN (SELECT users2.id
+                                          FROM users users2
+                                          INNER JOIN user_likes_genres ON (user_likes_genres.user_id = users2.id)
+                                          INNER JOIN genres ON (genres.id = user_likes_genres.genre_id)
+                                          WHERE genres.id IN (SELECT genres2.id
+                                                              FROM genres genres2
+                                                              INNER JOIN user_likes_genres user_likes_genres2 ON (user_likes_genres2.genre_id = genres2.id)
+                                                              INNER JOIN users ON (users.id = user_likes_genres2.user_id)
+                                                              WHERE users.id = ?)
+                                          GROUP BY users2.id
+                                          HAVING COUNT(*) >= 3));
+-- Bind to (user_id)
+
+
+SELECT concerts.id, title, description, cdatetime, location_name, ccity, buy_tickets_website, concerts.created_at, concerts.updated_at
+FROM concerts
+WHERE concerts.id IN (SELECT DISTINCT recommendations.concert_id
+FROM recommendations
+INNER JOIN concert_lists ON (concert_lists.id = recommendations.concert_list_id)
+INNER JOIN users users3 ON (users3.id = concert_lists.list_owner_id)
+WHERE users3.id IN (SELECT users2.id
+FROM users users2
+INNER JOIN user_likes_genres ON (user_likes_genres.user_id = users2.id)
+INNER JOIN genres ON (genres.id = user_likes_genres.genre_id)
+WHERE genres.id IN (SELECT genres2.id
+FROM genres genres2
+INNER JOIN user_likes_genres user_likes_genres2 ON (user_likes_genres2.genre_id = genres2.id)
+INNER JOIN users ON (users.id = user_likes_genres2.user_id)
+WHERE users.id = 1)
+GROUP BY users2.id
+HAVING COUNT(*) >= 3));
 
 -- ---
 -- Test of Queries Above

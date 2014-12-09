@@ -1,3 +1,5 @@
 <h1>Search Results</h1>
 
-<%= render @search.concerts %>
+<ul class="users">
+  <%= render @search.concerts.order('cdatetime DESC') %>
+</ul>
