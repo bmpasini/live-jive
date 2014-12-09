@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  keywords: MyString
+  city: MyString
+  from_date: 2014-12-08
+  to_date: 2014-12-08
+  concert_id: 
+
+two:
+  keywords: MyString
+  city: MyString
+  from_date: 2014-12-08
+  to_date: 2014-12-08
+  concert_id: 

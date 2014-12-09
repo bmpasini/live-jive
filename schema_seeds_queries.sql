@@ -346,7 +346,6 @@ INSERT INTO recommendations (concert_id,concert_list_id,created_at,updated_at) V
 -- by people they follow during the next month, or see all newly posted concerts since the last time they logged in.
 
 -- See all concerts from a specific genre in a certain city during the next week (next 7 days from now)
-
 SELECT concerts.id, cdate, ctime, location_name,ccity, ccity, buy_tickets_website, concerts.created_at, concerts.updated_at
 FROM concerts
 INNER JOIN lineups ON (concerts.id = lineups.concert_id)
@@ -357,7 +356,6 @@ WHERE genre = ? AND ccity = ? AND cdate >= DATE(NOW()) AND cdate <= DATE_ADD(DAT
 -- Binded to (genre, city)
 
 -- See all concerts from a specific subgenre in a certain city in the following week (next 7 days from now)
-
 SELECT concerts.id, cdate, ctime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
 FROM concerts
 INNER JOIN lineups ON (concerts.id = lineups.concert_id)
@@ -367,8 +365,27 @@ INNER JOIN genres ON (genres.id = band_plays_genres.genre_id)
 WHERE subgenre = ? AND ccity = ? AND cdate >= DATE(NOW()) AND cdate <= DATE_ADD(DATE(NOW()),INTERVAL 7 DAY);
 -- Binded to (subgenre, concert_city)
 
--- See all concerts recommended by people they follow during the next month (next 1 month from now)
+SELECT * FROM concerts
+INNER JOIN lineups ON (concerts.id = lineups.concert_id)
+INNER JOIN bands ON (bands.id = lineups.band_id)
+INNER JOIN band_plays_genres ON (bands.id = band_plays_genres.band_id)
+INNER JOIN genres ON (genres.id = band_plays_genres.genre_id)
+WHERE subgenre = ? AND genre = ?
 
+
+--------------------------------------------------------------------------------------------------------------
+-- See all concerts from a specific subgenre in a certain city in the following week (next 7 days from now)
+SELECT concerts.id, cdate, ctime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
+FROM concerts
+INNER JOIN lineups ON (concerts.id = lineups.concert_id)
+INNER JOIN bands ON (bands.id = lineups.band_id)
+INNER JOIN band_plays_genres ON (bands.id = band_plays_genres.band_id)
+INNER JOIN genres ON (genres.id = band_plays_genres.genre_id)
+WHERE subgenre = :subgenre AND ccity = :city AND cdate >= :from_date AND cdate <= :to_date
+--------------------------------------------------------------------------------------------------------------
+
+
+-- See all concerts recommended by people they follow during the next month (next 1 month from now)
 SELECT concerts.id, cdate, ctime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
 FROM concerts
 INNER JOIN recommendations ON (recommendations.concert_id = concerts.id)
@@ -379,7 +396,6 @@ WHERE users.id = ? AND cdate <= DATE_ADD(DATE(NOW()),INTERVAL 1 MONTH);
 -- Binded to (user_id)
 
 -- See all newly posted concerts since the last time they logged in
-
 SELECT concerts.id, cdate, ctime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
 FROM concerts
 WHERE concerts.created_at >= (SELECT last_login_at
@@ -397,7 +413,6 @@ WHERE concerts.created_at >= (SELECT last_login_at
 
 -- Recommend to the user those concerts in the categories the user likes that were recommended in many lists by other users
 -- Here we are going to retrieve all concerts that have bands who play genres that the user likes, which have been included in at least 2 recommended lists
-
 SELECT concerts.id, cdatetime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
 FROM concerts
 WHERE concerts.id IN (SELECT concerts2.id
@@ -418,7 +433,6 @@ WHERE concerts.id IN (SELECT concerts2.id
 
 -- Recommend to the user those concerts in the categories the user likes that were recommended in lists of followed users
 -- Here we are going to retrieve all concerts that have bands who play genres that the user likes, which have been included in recommended lists of users he follows
-
 SELECT concerts.id, cdatetime, location_name, buy_tickets_website, concerts.created_at, concerts.updated_at
 FROM concerts
 WHERE concerts.id IN (SELECT concerts2.id
@@ -453,7 +467,6 @@ SELECT concerts.id, cdatetime, location_name, buy_tickets_website, concerts.crea
 
 -- Suggest bands that were liked by other users that had similar tastes to this user in the past
 -- Here we are going to retrieve all bands who play genres that the user likes and that have at least 2 other fans
-
 SELECT bands.id,bandname,bands.name,bands.bio,website,bands.email,bands.created_at,bands.updated_at
 FROM bands
 WHERE bands.id IN (SELECT bands2.id
@@ -472,7 +485,6 @@ WHERE bands.id IN (SELECT bands2.id
 
 -- Suggest bands whose concerts were highly rated by other users that had similar tastes to this user in the past
 -- Here we are going to retrieve all bands who have had at least 1 concert average rating greater or equal than 4
-
 SELECT bands.id,bandname,bands.name,bands.bio,website,bands.email,bands.created_at,bands.updated_at
 FROM bands
 WHERE bands.id IN (SELECT DISTINCT bands2.id

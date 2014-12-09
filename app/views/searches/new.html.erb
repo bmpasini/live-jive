@@ -1,0 +1,23 @@
+<% provide(:title, 'Concerts - Advanced Search') %>
+<h1>Concerts - Advanced Search</h1>
+
+<%= form_for @search do |f| %>
+  <div class="field">
+    <%= f.label :keywords %><br />
+    <%= f.text_field :keywords %>
+  </div>
+  <div class="field">
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </div>
+  <div class="field">
+    <%= f.label :genre_id %><br />
+    <%= f.collection_select :genre_id, Genre.order(:subgenre), :id, :subgenre, include_blank: true %>
+  </div>
+  <div class="field">
+    <%= f.label :from_date, "Date Range" %><br />
+    <%= f.date_select :from_date, size: 10 %> -
+    <%= f.date_select :to_date, size: 10 %>
+  </div>
+  <div class="actions"><%= f.submit "Search" %></div>
+<% end %>

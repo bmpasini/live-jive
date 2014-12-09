@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141204184347) do
+ActiveRecord::Schema.define(version: 20141209011029) do
 
   create_table "band_plays_genres", force: true do |t|
     t.integer  "band_id"
@@ -105,6 +105,16 @@ ActiveRecord::Schema.define(version: 20141204184347) do
 
   add_index "recommendations", ["concert_list_id", "concert_id"], name: "index_recommendations_on_concert_list_id_and_concert_id", unique: true, using: :btree
 
+  create_table "searches", force: true do |t|
+    t.string   "keywords"
+    t.string   "city"
+    t.date     "from_date"
+    t.date     "to_date"
+    t.integer  "genre_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "tickets", force: true do |t|
     t.string   "tier"
     t.integer  "price"
@@ -146,8 +156,8 @@ ActiveRecord::Schema.define(version: 20141204184347) do
     t.integer  "reputation_score",     default: 0
     t.boolean  "is_admin?",            default: false
     t.datetime "reset_sent_at"
-    t.datetime "penultimate_login_at", default: '2014-12-08 21:34:39'
-    t.datetime "last_login_at",        default: '2014-12-08 21:34:39'
+    t.datetime "penultimate_login_at", default: '2014-12-09 04:15:59'
+    t.datetime "last_login_at",        default: '2014-12-09 04:15:59'
     t.datetime "created_at"
     t.datetime "updated_at"
   end

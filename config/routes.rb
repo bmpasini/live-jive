@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   resources :fanships, only: [:create, :destroy]
   resources :concert_goings, only: [:create, :edit, :update, :destroy]
   resources :genres
+  resources :searches
 
   # static pages
   get  'home' => 'static_pages#home'

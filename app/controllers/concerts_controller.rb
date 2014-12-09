@@ -5,6 +5,16 @@ class ConcertsController < ApplicationController
   before_action :correct_band, only: [:edit, :update, :destroy]
   before_action :admin_user, only: :destroy
 
+  def new_search
+    @concert = Concert.new
+  end
+
+  def create_search
+  end
+
+  def search_results
+  end
+
   def index
     @concerts = Concert.paginate(page: params[:page])
   end

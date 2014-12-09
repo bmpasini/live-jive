@@ -1,0 +1,32 @@
+<% provide(:title, 'Concerts - Search') %>
+<h1>Concerts - Search</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for @concert, url: search_concerts_path, method: :post do |f|%>
+
+      <%= f.label :keywords %>
+      <%= f.text_field :keywords, class: 'form-control' %>
+
+      <%= f.label :from_date, "From" %>
+      <%= f.datetime_select :from_date, class: 'form-control' %>
+
+      <%= f.label :to_date, "To" %>
+      <%= f.datetime_select :to_date, class: 'form-control' %>
+
+      <%= f.label :ccity, "City" %>
+      <%= f.text_field :ccity, class: 'form-control' %>
+
+	  <div class="field">
+		<%= f.label :genre_ids, "Lineup" %><br />
+		<%= f.collection_select :genre_ids, Genre.order(:subgenre), :id, :subgenre, {}, { multiple: true } %>
+	</div>
+
+      <%= f.submit "Search", class: "btn btn-primary" %>
+    <% end %>
+
+    <br>
+
+    <%= link_to "Show all concerts", concerts_path %>
+  </div>
+</div>
