@@ -2,6 +2,13 @@ seeding_start = Time.now
 User.create(username: "bmpasini", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@nyu.edu", password: "password", password_confirmation: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: true, penultimate_login_at: Time.now, last_login_at: Time.now)
 User.create(username: "brunomacedo", name: "Bruno Macedo Pasini", year_of_birth: 1991, email: "bmpasini@gmail.com", password: "password", password_confirmation: "password", city_of_birth: "Sao Paulo",reputation_score: 10, is_admin?: false, penultimate_login_at: Time.now, last_login_at: Time.now)
 
+EMAIL_LIST = 'http://pastebin.com/raw.php?i=KdDrmNsX'
+emails = open(EMAIL_LIST).read.lines
+gravatar_emails = Array.new
+emails.each do |email|
+  gravatar_emails << email.strip.downcase
+end
+
 # 498.times do |n|
 98.times do |n|
   name  = Faker::Name.name
@@ -10,7 +17,7 @@ User.create(username: "brunomacedo", name: "Bruno Macedo Pasini", year_of_birth:
   	name  = Faker::Name.name
   	username = name.split(' ').join.downcase
   end
-  email = Faker::Internet.email
+  email = gravatar_emails.delete_at(rand(gravatar_emails.length))
   password = "password"
   city = Faker::Address.city
   yob = 1950+rand(55)
@@ -41,7 +48,7 @@ Band.create(bandname: "ziggymarley", name: "Ziggy Marley", bio: "Another son of 
   	name  = Faker::Company.name
   	bandname = name.split(' ').join.downcase
   end
-  email = Faker::Internet.email
+  email = gravatar_emails.delete_at(rand(gravatar_emails.length))
   # email_hash = "cbd36e1ddee20d1580f560ea2a08e1b5"
   # api = Gravatar.new("bmpasini@gmail.com", :api_key => email_hash)
   password = "password"

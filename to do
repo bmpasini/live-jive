@@ -14,7 +14,7 @@ to do
 - genres: genre page that user can like, show bands that play such genre and concerts that have bands that play that genre --> DONE
 - band: band need to edit its genres --> DONE
 - user: user likes genre --> DONE
-- feed: decide what it is going to looklike
-- reputation score: update it
+- feed: decide what it is going to looklike --> DONE
+- reputation score: update it --> DONE
 - search: design it --> DONE
 - add list of gravatars

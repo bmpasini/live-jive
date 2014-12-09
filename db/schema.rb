@@ -156,8 +156,8 @@ ActiveRecord::Schema.define(version: 20141209011029) do
     t.integer  "reputation_score",     default: 0
     t.boolean  "is_admin?",            default: false
     t.datetime "reset_sent_at"
-    t.datetime "penultimate_login_at", default: '2014-12-09 06:58:41'
-    t.datetime "last_login_at",        default: '2014-12-09 06:58:41'
+    t.datetime "penultimate_login_at", default: '2014-12-09 09:26:54'
+    t.datetime "last_login_at",        default: '2014-12-09 09:26:54'
     t.datetime "created_at"
     t.datetime "updated_at"
   end
