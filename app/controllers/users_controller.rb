@@ -11,6 +11,7 @@ class UsersController < ApplicationController
 
   def show
     @concert_lists = @user.concert_lists.paginate(page: params[:page], per_page: 10)
+    @user.set_reputation_score
     if current_user?(@user)
       @concerts_users = @user.concerts_from_followed_users_who_like_the_same_genres
       @concerts_system = Array.new
