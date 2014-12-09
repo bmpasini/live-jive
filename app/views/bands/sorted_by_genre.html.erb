@@ -9,7 +9,7 @@
 			<li>
 				<strong><%= genre.printable %></strong>
 			</li>
-			<ul class="bands">		
+			<ul class="microposts">		
 				<% genre.bands.each do |band| %>
 					<% if band.plays_genre?(genre) %>
 						<%= render band %>
