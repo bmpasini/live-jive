@@ -167,7 +167,7 @@ end
 ConcertList.create(title: "Reggae Shows", description: "Just the best of reggae.", list_owner_id: 1)
 ConcertList.create(title: "Bob Marley and Sons", description: "All shows of the Marley Family.", list_owner_id: 1)
 User.all.each do |list_owner|
-	(1+rand(20)).times do |n|
+	(1+rand(5)).times do |n|
 	  title  = Faker::Company.name
 	  description = Faker::Lorem.paragraph(1)
 	  list_owner_id = list_owner.id
